@@ -1,0 +1,133 @@
+Microsoft (R) Macro Assembler Version 5.00                  5/12/14 23:54:06
+                                                             Page     1-1
+
+
+ 0000				data segment 
+ 0000  0064[			 buff db 100 dup(?) 
+	    ??			
+			 ]	
+				
+ 0064  0000			 count dw 0 
+ 0066				data ends 
+				 
+ 0000				mystack segment 
+ 0000  0005[			 stack1 dw 5 dup(?) 
+	   ????			
+			 ]	
+				
+ 000A				mystack ends 
+				 
+ 0000				code segment 
+				assume cs:code,ds:data,ss:mystack 
+ 0000				start: 
+ 0000  B8 ---- R		mov ax,data 
+ 0003  8E D8			mov ds,ax 
+ 0005  B8 ---- R		mov ax,mystack 
+ 0008  8E D0			mov ss,ax 
+ 000A  BC 000A			mov sp,10 
+ 000D  BB 0000			mov bx,0 
+ 0010				input: 
+ 0010  B4 01			mov ah,1 
+ 0012  CD 21			int 21h 
+ 0014  88 87 0000 R		mov buff[bx],al 
+ 0018  43			inc bx 
+ 0019  3C 24			cmp al,'$' 
+ 001B  75 F3			jne input 
+				 
+ 001D  BB 0000			mov bx,0 
+ 0020				next: 
+ 0020  8A 97 0000 R		mov dl,buff[bx] 
+ 0024  43			inc bx 
+ 0025  80 FA 24			cmp dl,'$' 
+ 0028  74 10			je bin2dec 
+ 002A  80 FA 30			cmp dl,30h 
+ 002D  7C 05			jl cnt 
+ 002F  80 FA 39			cmp dl,39h 
+ 0032  7E EC			jle next 
+ 0034				cnt: 
+ 0034  FF 06 0064 R		inc count 
+ 0038  EB E6			jmp next 
+				 
+ 003A				bin2dec: 
+ 003A  A1 0064 R		mov ax,count 
+ 003D				store: 
+ 003D  BB 000A			mov bx,10 
+ 0040  99			cwd 
+ 0041  F7 F3			div bx 
+ 0043  52			push dx 
+ 0044  3D 0000			cmp ax,0 
+Microsoft (R) Macro Assembler Version 5.00                  5/12/14 23:54:06
+                                                             Page     1-2
+
+
+ 0047  75 F4			jnz store 
+				 
+ 0049				crlf: 
+ 0049  B2 0D			mov dl,0dh 
+ 004B  B4 02			mov ah,2 
+ 004D  CD 21			int 21h 
+ 004F  B2 0A			mov dl,0ah 
+ 0051  B4 02			mov ah,2 
+ 0053  CD 21			int 21h 
+				 
+ 0055				print: 
+ 0055  5A			pop dx 
+ 0056  80 C2 30			add dl,30h 
+ 0059  B4 02			mov ah,2 
+ 005B  CD 21			int 21h 
+ 005D  83 FC 0A			cmp sp,10 
+ 0060  75 F3			jne print 
+				 
+ 0062				exit: 
+ 0062  B4 07			mov ah,7 
+ 0064  CD 21			int 21h 
+ 0066  B4 4C			mov ah,4ch 
+ 0068  CD 21			int 21h 
+ 006A				code ends 
+				end start 
+Microsoft (R) Macro Assembler Version 5.00                  5/12/14 23:54:06
+                                                             Symbols-1
+
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+CODE . . . . . . . . . . . . . .  	006A	PARA	NONE	
+DATA . . . . . . . . . . . . . .  	0066	PARA	NONE	
+MYSTACK  . . . . . . . . . . . .  	000A	PARA	NONE	
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+BIN2DEC  . . . . . . . . . . . .  	L NEAR	003A	CODE
+BUFF . . . . . . . . . . . . . .  	L BYTE	0000	DATA	Length = 0064
+
+CNT  . . . . . . . . . . . . . .  	L NEAR	0034	CODE
+COUNT  . . . . . . . . . . . . .  	L WORD	0064	DATA
+CRLF . . . . . . . . . . . . . .  	L NEAR	0049	CODE
+
+EXIT . . . . . . . . . . . . . .  	L NEAR	0062	CODE
+
+INPUT  . . . . . . . . . . . . .  	L NEAR	0010	CODE
+
+NEXT . . . . . . . . . . . . . .  	L NEAR	0020	CODE
+
+PRINT  . . . . . . . . . . . . .  	L NEAR	0055	CODE
+
+STACK1 . . . . . . . . . . . . .  	L WORD	0000	MYSTACK	Length = 0005
+START  . . . . . . . . . . . . .  	L NEAR	0000	CODE
+STORE  . . . . . . . . . . . . .  	L NEAR	003D	CODE
+
+@FILENAME  . . . . . . . . . . .  	TEXT  work11		
+
+
+     73 Source  Lines
+     73 Total   Lines
+     17 Symbols
+
+  51044 + 465500 Bytes symbol space free
+
+      0 Warning Errors
+      0 Severe  Errors

@@ -1,0 +1,119 @@
+Microsoft (R) Macro Assembler Version 5.00                  5/12/14 20:11:43
+                                                             Page     1-1
+
+
+ 0000				data segment 
+ 0000  50 6C 65 61 73 65 20	 string db 'Please input a lower case. Press En
+				ter key exit.' 
+       69 6E 70 75 74 20 61	
+       20 6C 6F 77 65 72 20	
+       63 61 73 65 2E 20 50	
+       72 65 73 73 20 45 6E	
+       74 65 72 20 6B 65 79	
+       20 65 78 69 74 2E	
+ = 0030				 len_str equ $-string 
+ 0030				data ends 
+				 
+ 0000				code segment 
+				assume cs:code,ds:data 
+ 0000				start: 
+ 0000  E8 003E R		call show 
+ 0003				crlf: 
+ 0003  B2 0D			mov dl,0dh 
+ 0005  B4 02			mov ah,2 
+ 0007  CD 21			int 21h 
+ 0009  B2 0A			mov dl,0ah 
+ 000B  B4 02			mov ah,2 
+ 000D  CD 21			int 21h 
+				 
+ 000F				next: 
+ 000F  B4 07			mov ah,07h 
+ 0011  CD 21			int 21h 
+ 0013  3C 0D			cmp al,0dh	;是回车就退出程序 
+ 0015  74 22			je exit 
+ 0017  3C 61			cmp al,'a'	;小于a重新输入 
+ 0019  7C F4			jl next 
+ 001B  3C 7A			cmp al,'z'	;大于z重新输入 
+ 001D  7F F0			jg next 
+ 001F  8A D8			mov bl,al	;将输入的字符放
+				入bl中 
+ 0021				output: 
+ 0021  8A D3			mov dl,bl 
+ 0023  FE CA			dec dl 
+ 0025  B4 02			mov ah,2 
+ 0027  CD 21			int 21h		;输出前一个字符
+				 
+ 0029  8A D3			mov dl,bl 
+ 002B  B4 02			mov ah,2 
+ 002D  CD 21			int 21h		;输出本字符 
+ 002F  8A D3			mov dl,bl 
+ 0031  FE C2			inc dl 
+ 0033  B4 02			mov ah,2 
+ 0035  CD 21			int 21h		;输出后一个字符
+	
+ 0037  EB CA			jmp crlf 
+ 0039				exit: 
+ 0039  B8 4C00			mov ax,4c00h 
+ 003C  CD 21			int 21h 
+				 
+Microsoft (R) Macro Assembler Version 5.00                  5/12/14 20:11:43
+                                                             Page     1-2
+
+
+ 003E				show proc near 
+ 003E  B8 ---- R		mov ax,data 
+ 0041  8E C0			mov es,ax 
+ 0043  8D 2E 0000 R		lea bp,string 
+ 0047  B9 0030			mov cx,len_str 
+ 004A  BA 0000			mov dx,0	;设置起始行列
+ 004D  B4 00			mov ah,0 
+ 004F  B0 03			mov al,3 
+ 0051  CD 10			int 10h		;设置文本显示
+ 0053  B3 0E			mov bl,0eh	;设置字符串属性为黑底黄字
+ 0055  B4 13			mov ah,13h	;输出字符串
+ 0057  B0 00			mov al,0 
+ 0059  CD 10			int 10h 
+ 005B  C3			ret 
+ 005C				show endp 
+ 005C				code ends 
+				end start 
+Microsoft (R) Macro Assembler Version 5.00                  5/12/14 20:11:43
+                                                             Symbols-1
+
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+CODE . . . . . . . . . . . . . .  	005C	PARA	NONE	
+DATA . . . . . . . . . . . . . .  	0030	PARA	NONE	
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+CRLF . . . . . . . . . . . . . .  	L NEAR	0003	CODE
+
+EXIT . . . . . . . . . . . . . .  	L NEAR	0039	CODE
+
+LEN_STR  . . . . . . . . . . . .  	NUMBER	0030	
+
+NEXT . . . . . . . . . . . . . .  	L NEAR	000F	CODE
+
+OUTPUT . . . . . . . . . . . . .  	L NEAR	0021	CODE
+
+SHOW . . . . . . . . . . . . . .  	N PROC	003E	CODE	Length = 001E
+START  . . . . . . . . . . . . .  	L NEAR	0000	CODE
+STRING . . . . . . . . . . . . .  	L BYTE	0000	DATA
+
+@FILENAME  . . . . . . . . . . .  	TEXT  work2		
+
+
+     61 Source  Lines
+     61 Total   Lines
+     12 Symbols
+
+  51178 + 465366 Bytes symbol space free
+
+      0 Warning Errors
+      0 Severe  Errors

@@ -1,0 +1,179 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - 陕师大综合教务系统</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <link href="~/Content/StudentStyle.css" rel="stylesheet" />
+    <link href="~/Scripts/jBox/Skins/Blue/jbox.css" rel="stylesheet" />
+    <link href="~/Content/ks.css" rel="stylesheet" />
+
+    <script src="~/Scripts/jBox/jquery-1.4.2.min.js"></script>
+    <script src="~/Scripts/jBox/jquery.jBox-2.3.min.js"></script>
+    <script src="~/Script/jBox/i18n/jquery.jBox-zh-CN.js"></script>
+    <script src="~/Script/Common.js"></script>
+    <script src="~/Script/Data.js"></script>
+
+    <script type="text/javascript">
+        $().ready(function () {
+            setStudMsgHeadTabCheck();
+            showUnreadSysMsgCount();
+        });
+
+        //我的信息头部选项卡
+        function setStudMsgHeadTabCheck() {
+            var currentUrl = window.location.href;
+            currentUrl = currentUrl.toLowerCase();
+            var asmhm = "";
+            $("#ulStudMsgHeadTab li").each(function () {
+                asmhm = $(this).find('a').attr("href").toLowerCase();
+                if (currentUrl.indexOf(asmhm) > 0) {
+                    $(this).find('a').attr("class", "tab1");
+                    return;
+                }
+            });
+        }
+
+        //显示未读系统信息
+        function showUnreadSysMsgCount() {
+            var unreadSysMsgCount = "0";
+            if (Number(unreadSysMsgCount) > 0) {
+                $("#unreadSysMsgCount").html("(" + unreadSysMsgCount + ")");
+            }
+        }
+
+        //退出
+        function loginOut() {
+            if (confirm("确定退出吗？")) {
+                StudentLogin.loginOut(function (data) {
+                    if (data == "true") {
+                        window.location = "/Account/Login";
+                    }
+                    else {
+                        jBox.alert("退出失败！", "提示", new { buttons: { "确定": true } });
+                    }
+                });
+            }
+        }
+    </script>
+
+    <script src="~/Script/changeOption.js"></script>
+    <script src="~/Script/rl.js"></script>
+
+</head>
+<body>
+    <div class="banner">
+        <div class="bgh">
+            <div class="page">
+                <div id="logo">
+                    <a href="#">
+                        <img src="~/Images/Teacher/logo.png" alt="" width="238" height="70" />
+                    </a>
+                </div>
+                <div class="topxx">
+                    张丹玉 学号:41212205，欢迎您！
+                    <a href="MyInfo/Index.aspx.html">我的信息</a>
+                    <a href="User/StudentInfor/systemMsge.aspx.html">通知</a>
+                    <a href="User/Account/ChangePasswd.aspx.html">密码修改</a>
+                    <a onclick="loginOut()" href="javascript:">安全退出</a>
+                </div>
+                @Html.Partial("_LoginPartial")
+                <div class="blog_nav">
+                    <ul>
+                        <li><a href="Index.aspx.html">我的信息</a></li>
+                        <li><a href="EducationCenter/Score.aspx.html">教务中心</a></li>
+                        <li><a href="MyAccount/wdcw.aspx.html">我的学费</a></li>
+                        <li><a href="OnlineTeaching/StudentMaterial.aspx.html">资料中心</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page">
+        <div class="box mtop">
+            <div class="leftbox">
+                <div class="l_nav2">
+                    <div class="ta1">
+                        <strong>个人中心</strong>
+                        <div class="leftbgbt">
+                        </div>
+                    </div>
+                    <div class="cdlist">
+                        <div>
+                            <a href="MyInfo/Index.aspx.html">我的信息</a>
+                        </div>
+                        <div>
+                            <a href="MyInfo/ClassInfo.aspx.html">班级信息 </a>
+                        </div>
+                        <div>
+                            <a href="User/StudentInfor/Letter.aspx.html">短信息</a>
+                        </div>
+                        <div>
+                            <a href="User/StudentInfor/systemMsge.aspx.html">学院通知</a>
+                        </div>
+                        <div>
+                            <a href="MyInfo/Objection.aspx.html">我的异议</a>
+                        </div>
+                    </div>
+                    <div class="ta1">
+                        <strong>教务中心</strong>
+                        <div class="leftbgbt2">
+                        </div>
+                    </div>
+                    <div class="cdlist">
+                        <div>
+                            <a href="EducationCenter/Application.aspx.html">我的报考</a>
+                        </div>
+                        <div>
+                            <a href="EducationCenter/Score.aspx.html">我的成绩</a>
+                        </div>
+                        <div>
+                            <a href="EducationCenter/Book.aspx.html">我的书籍</a>
+                        </div>
+                    </div>
+                    <div class="ta1">
+                        <strong>学习中心</strong><div class="leftbgbt2">
+                        </div>
+                    </div>
+                    <div class="cdlist">
+                        <div>
+                            <a href="OnlineTeaching/StudentMaterial.aspx.html">资料下载</a>
+                        </div>
+                        <div>
+                            <a href="OnlineTeaching/StudentStudyRecordList.aspx.html">学习历程</a>
+                        </div>
+                    </div>
+
+                    <div class="ta1">
+                        <strong>财务中心</strong><div class="leftbgbt2">
+                        </div>
+                    </div>
+                    <div class="cdlist">
+                        <div>
+                            <a href="MyAccount/wdcw.aspx.html">我的财务</a>
+                        </div>
+                    </div>
+                    <div class="ta1">
+                        <a href="http://www.csgb.net/login.aspx?userLoginName=2015&userName=张丹玉&professionId=F40C998A-D9AC-421F-99C9-C024C1DC53AD&flag=sm" target="_blank"><strong>教学系统</strong></a>
+                        <div class="leftbgbt2">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="rightbox">
+                @RenderBody()
+            </div>
+        </div>
+        <div class="footer">
+            <p>&copy; @DateTime.Now.Year - 张丹玉 41212205 版权所有</p>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

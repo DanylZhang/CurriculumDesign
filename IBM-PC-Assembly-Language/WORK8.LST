@@ -1,0 +1,64 @@
+Microsoft (R) Macro Assembler Version 5.00                  5/11/14 21:05:57
+                                                             Page     1-1
+
+
+				assume cs:code 
+ 0000				code segment 
+ 0000				start: 
+ 0000  B8 DAB4			mov ax,1101101010110100b 
+				 
+ 0003  B2 00			mov dl,0 
+ 0005  B5 09			mov ch,9 
+ 0007  B1 02			mov cl,2 
+ 0009				next: 
+ 0009  8B D8			mov bx,ax 
+ 000B  D3 E8			shr ax,cl 
+ 000D  FE CD			dec ch 
+ 000F  74 0C			jz print 
+ 0011  83 E3 03			and bx,0000000000000011b 
+ 0014  83 FB 03			cmp bx,3 
+ 0017  75 F0			jne next 
+ 0019  FE C2			inc dl 
+ 001B  EB EC			jmp next 
+				 
+ 001D				print: 
+ 001D  80 C2 30			add dl,30h 
+ 0020  B4 02			mov ah,2 
+ 0022  CD 21			int 21h 
+ 0024  B4 07			mov ah,7 
+ 0026  CD 21			int 21h 
+ 0028  B8 4C00			mov ax,4c00h 
+ 002B  CD 21			int 21h 
+ 002D				code ends 
+				end start 
+Microsoft (R) Macro Assembler Version 5.00                  5/11/14 21:05:57
+                                                             Symbols-1
+
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+CODE . . . . . . . . . . . . . .  	002D	PARA	NONE	
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+NEXT . . . . . . . . . . . . . .  	L NEAR	0009	CODE
+
+PRINT  . . . . . . . . . . . . .  	L NEAR	001D	CODE
+
+START  . . . . . . . . . . . . .  	L NEAR	0000	CODE
+
+@FILENAME  . . . . . . . . . . .  	TEXT  work8		
+
+
+     29 Source  Lines
+     29 Total   Lines
+      6 Symbols
+
+  51218 + 465326 Bytes symbol space free
+
+      0 Warning Errors
+      0 Severe  Errors

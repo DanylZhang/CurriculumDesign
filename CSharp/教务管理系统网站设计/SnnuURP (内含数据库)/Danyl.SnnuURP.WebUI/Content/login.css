@@ -1,0 +1,90 @@
+BODY {
+	FONT-SIZE: 12px
+}
+#logoLogin {
+	POSITION: absolute; LEFT: 60px; Z-INDEX: 50; TOP: 32px
+}
+#Login {
+	HEIGHT: 343px; WIDTH: 498px; BACKGROUND: url(../images/loginbg.png) no-repeat left top; POSITION: absolute; COLOR: #fff; PADDING-TOP: 10px; LEFT: 50%; MARGIN: -176px 0px 0px -249px; Z-INDEX: 50; TOP: 50%
+}
+#Login H1 {
+	OVERFLOW: hidden; HEIGHT: 59px; WIDTH: 358px; BACKGROUND: url(../images/login_logo.png) no-repeat left top; MARGIN: 0px auto 10px; TEXT-INDENT: -99em
+}
+#Login .form {
+	WIDTH: 360px; PADDING-TOP: 20px; MARGIN: 0px auto
+}
+#Login .form .username {
+	BORDER-TOP-STYLE: none; MARGIN-BOTTOM: 8px; FONT-SIZE: 16px; HEIGHT: 55px; WIDTH: 265px; BACKGROUND: url(../images/username.png) no-repeat left top; BORDER-BOTTOM-STYLE: none; COLOR: #2a3443; BORDER-RIGHT-STYLE: none; PADDING-LEFT: 95px; BORDER-LEFT-STYLE: none; LINE-HEIGHT: 55px
+}
+#Login .form .password {
+	BORDER-TOP-STYLE: none; MARGIN-BOTTOM: 8px; FONT-SIZE: 16px; HEIGHT: 55px; WIDTH: 265px; BACKGROUND: url(../images/password.png) no-repeat left top; BORDER-BOTTOM-STYLE: none; COLOR: #ff675e; BORDER-RIGHT-STYLE: none; PADDING-LEFT: 95px; BORDER-LEFT-STYLE: none; LINE-HEIGHT: 55px
+}
+#Login .form P {
+	FONT-SIZE: 14px; HEIGHT: 24px; COLOR: #b5ceec; PADDING-BOTTOM: 12px; PADDING-TOP: 5px; PADDING-LEFT: 10px; LINE-HEIGHT: 24px; PADDING-RIGHT: 10px
+}
+#Login .form A {
+	COLOR: #b5ceec
+}
+#Login .form P EM {
+	FONT-SIZE: 12px; COLOR: #fff
+}
+#Login .form .btn_send {
+	BORDER-TOP-STYLE: none; OVERFLOW: hidden; HEIGHT: 51px; WIDTH: 354px; BACKGROUND: url(../images/btn_login1.png) no-repeat left top; BORDER-BOTTOM-STYLE: none; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: none; DISPLAY: block; TEXT-INDENT: -99em
+}
+#Login .form .btn_send1 {
+	BORDER-TOP-STYLE: none; OVERFLOW: hidden; HEIGHT: 51px; WIDTH: 354px; BACKGROUND: url(../images/btn_login2.png) no-repeat left top; BORDER-BOTTOM-STYLE: none; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: none; DISPLAY: block; TEXT-INDENT: -99em
+}
+#copyright {
+	HEIGHT: 42px; WIDTH: 100%; BACKGROUND: url(../images/heibg.png) left top; BORDER-BOTTOM: #031226 1px solid; POSITION: fixed; COLOR: #fff; TEXT-ALIGN: center; LEFT: 0px; Z-INDEX: 50; LINE-HEIGHT: 42px; BOTTOM: 0px
+}
+#content {
+	HEIGHT: 100px; WIDTH: 100%; POSITION: absolute; MARGIN: 0px auto; Z-INDEX: 3; BOTTOM: 5%
+}
+#contentframe {
+	OVERFLOW: hidden; HEIGHT: 100%; TEXT-ALIGN: left; Z-INDEX: 3
+}
+#slidecounter {
+	FLOAT: left; COLOR: #4f4f4f; FONT: bold 50px "helvetica neue", arial, sans-serif; MARGIN: 18px 20px
+}
+#slidecaption {
+	OVERFLOW: hidden; FLOAT: left; COLOR: #fff; FONT: bold 26px "helvetica neue", arial, sans-serif; MARGIN: 33px 0px
+}
+.stamp {
+	FLOAT: right; MARGIN: 25px 20px 0px 0px
+}
+#navigation {
+	FLOAT: right; MARGIN: 22px 20px 0px 0px; DISPLAY: inline
+}
+#navigation2 {
+	POSITION: absolute; MARGIN-LEFT: -50px; LEFT: 50%
+}
+#navigation2 SPAN {
+	OVERFLOW: hidden; HEIGHT: 18px; WIDTH: 18px; BACKGROUND: url(../images/nav_libg.png) no-repeat right top; FLOAT: left; DISPLAY: inline; MARGIN-RIGHT: 10px; TEXT-INDENT: -99em
+}
+#navigation2 SPAN.change {
+	BACKGROUND-POSITION: left top; MARGIN-LEFT: 8px
+}
+#loading {
+	HEIGHT: 24px; WIDTH: 24px; BACKGROUND-IMAGE: url(../images/progress.gif); POSITION: absolute; LEFT: 49.5%; Z-INDEX: 3; TOP: 49.5%; TEXT-INDENT: -999em
+}
+#supersize {
+	POSITION: fixed
+}
+#supersize IMG {
+	HEIGHT: 100%; WIDTH: 100%; POSITION: absolute; Z-INDEX: 0
+}
+#supersize A {
+	HEIGHT: 100%; WIDTH: 100%; POSITION: absolute; Z-INDEX: 0
+}
+#supersize .prevslide {
+	Z-INDEX: 1
+}
+#supersize .prevslide IMG {
+	Z-INDEX: 1
+}
+#supersize .activeslide {
+	Z-INDEX: 2
+}
+#supersize .activeslide IMG {
+	Z-INDEX: 2
+}

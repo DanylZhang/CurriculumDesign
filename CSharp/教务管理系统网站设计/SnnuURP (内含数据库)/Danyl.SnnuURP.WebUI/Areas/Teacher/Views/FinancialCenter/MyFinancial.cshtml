@@ -1,0 +1,64 @@
+﻿@using Danyl.SnnuURP.Model;
+
+@{
+    ViewBag.Title = "我的财务";
+    Layout = "~/Areas/Teacher/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="mbx">我的财务</h2>
+<div class="cztable">
+    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+        <tr>
+            <th style="text-align:center">工号</th>
+            <th style="text-align:center">姓名</th>
+            <th style="text-align:center">所属学院</th>
+            <th style="text-align:center">基本工资</th>
+            <th style="text-align:center">旧工资</th>
+            <th style="text-align:center">新工资</th>
+        </tr>
+        @if (ViewBag.TeacherWageList == null)
+        {
+            <tr align="center">
+                <td colspan="13" align="left" style="color: Red; font-weight:bold;">暂无工资调整信息!</td>
+            </tr>
+        }
+        else
+        {
+            foreach (TeacherWageAdjustmentView wage in ViewBag.TeacherWageList)
+            {
+                <tr align="center">
+                    <td style="text-align:center">
+                        <span style="color: #FF0000; font-size: 16px; font-weight: bold;">
+                            @wage.Tid
+                        </span>
+                    </td>
+                    <td style="text-align:center">
+                        <span style="color: #FF0000;  font-size: 16px; font-weight: bold;">
+                            @wage.Tname
+                        </span>
+                    </td>
+                    <td style="text-align:center">
+                        <span style="color: #FF0000;  font-size: 16px; font-weight: bold;">
+                            @wage.DeptName
+                        </span>
+                    </td>
+                    <td style="text-align:center">
+                        <span style="color: #FF0000;  font-size: 16px; font-weight: bold;">
+                            @wage.BasicWage
+                        </span>
+                    </td>
+                    <td style="text-align:center">
+                        <span style="color: #FF0000;  font-size: 16px; font-weight: bold;">
+                            @wage.OldSalary
+                        </span>
+                    </td>
+                    <td style="text-align:center">
+                        <span style="color: #FF0000;  font-size: 16px; font-weight: bold;">
+                            @wage.NewSalary
+                        </span>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+</div>

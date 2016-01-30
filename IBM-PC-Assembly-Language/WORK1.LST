@@ -1,0 +1,167 @@
+Microsoft (R) Macro Assembler Version 5.00                  5/12/14 20:06:08
+                                                             Page     1-1
+
+
+ 0000				data segment 
+ 0000  20			 maxlen db 32 
+ 0001  ??			 actlen db ? 
+ 0002  0020[			 buffer db 32 dup(?) 
+	    ??			
+			 ]	
+				
+ 0022  50 6C 65 61 73 65 20	 string db 'Please input no more than 32 charac
+				ters. Press Enter key to changecase and exit.' 
+       69 6E 70 75 74 20 6E	
+       6F 20 6D 6F 72 65 20	
+       74 68 61 6E 20 33 32	
+       20 63 68 61 72 61 63	
+       74 65 72 73 2E 20 50	
+       72 65 73 73 20 45 6E	
+       74 65 72 20 6B 65 79	
+       20 74 6F 20 63 68 61	
+       6E 67 65 63 61 73 65	
+       20 61 6E 64 20 65 78	
+       69 74 2E			
+ = 0050				 len_str equ $-string 
+ 0072				data ends 
+				 
+ 0000				code segment 
+				assume cs:code,ds:data 
+ 0000				start: 
+ 0000  8D 2E 0022 R		lea bp,string 
+ 0004  B9 0050			mov cx,len_str 
+ 0007  E8 002C R		call show	;输出提示信息 
+ 000A  E8 0043 R		call crlf	;回车换行 
+ 000D  E8 0050 R		call getstring	;获取用户输入并存储 
+ 0010  E8 005E R		call lwr2upr	;小写转大写 
+ 0013  8D 2E 0002 R		lea bp,buffer 
+ 0017  2A ED			sub ch,ch 
+ 0019  8A 0E 0001 R		mov cl,actlen 
+ 001D  E8 002C R		call show	;输出转换后文本 
+				;mov ch,0ffh	;置ch的第4位为1，不显示光标 
+				;mov ah,1	;置光标类型 
+				;int 10h	;调用BIOS中断 
+ 0020  E8 0043 R		call crlf 
+ 0023  B4 07			mov ah,7 
+ 0025  CD 21			int 21h		;输入任意键退出 
+ 0027  B8 4C00			mov ax,4c00h 
+ 002A  CD 21			int 21h 
+				 
+ 002C				show proc near 
+ 002C  B8 ---- R		mov ax,data 
+Microsoft (R) Macro Assembler Version 5.00                  5/12/14 20:06:08
+                                                             Page     1-2
+
+
+ 002F  8E C0			mov es,ax 
+				;lea bp,string 
+				;mov cx,len_str 
+ 0031  BA 0000			mov dx,0	;设置起始行列 
+ 0034  B4 00			mov ah,0 
+ 0036  B0 03			mov al,3 
+ 0038  CD 10			int 10h		;设置文本显示 
+ 003A  B3 0E			mov bl,0eh	;设置字符串属性为黑底黄字 
+ 003C  B4 13			mov ah,13h	;输出字符串 
+ 003E  B0 00			mov al,0 
+ 0040  CD 10			int 10h 
+ 0042  C3			ret 
+ 0043				show endp 
+				 
+ 0043				crlf proc near 
+ 0043  B2 0D			mov dl,0dh 
+ 0045  B4 02			mov ah,2 
+ 0047  CD 21			int 21h 
+ 0049  B2 0A			mov dl,0ah 
+ 004B  B4 02			mov ah,2 
+ 004D  CD 21			int 21h 
+ 004F  C3			ret 
+ 0050				crlf endp 
+				 
+ 0050				getstring proc near 
+ 0050  B8 ---- R		mov ax,data 
+ 0053  8E D8			mov ds,ax 
+ 0055  8D 16 0000 R		lea dx,maxlen 
+ 0059  B4 0A			mov ah,0ah 
+ 005B  CD 21			int 21h 
+ 005D  C3			ret 
+ 005E				getstring endp 
+				 
+ 005E				lwr2upr proc near 
+ 005E  B8 ---- R		mov ax,data 
+ 0061  8E D8			mov ds,ax 
+ 0063  BB FFFF			mov bx,0-1 
+ 0066				next: 
+ 0066  43			inc bx 
+ 0067  3A 1E 0001 R		cmp bl,actlen 
+ 006B  7F 16			jg exit 
+ 006D  8A 87 0002 R		mov al,buffer[bx] 
+ 0071  3C 61			cmp al,'a' 
+ 0073  7C F1			jl next 
+ 0075  3C 7A			cmp al,'z' 
+ 0077  7F ED			jg next 
+ 0079  7E 00			jle upper 
+				 
+ 007B				upper: 
+ 007B  24 DF			and al,11011111b 
+ 007D  88 87 0002 R		mov buffer[bx],al 
+Microsoft (R) Macro Assembler Version 5.00                  5/12/14 20:06:08
+                                                             Page     1-3
+
+
+ 0081  EB E3			jmp next 
+				 
+ 0083				exit: 
+ 0083  C3			ret 
+ 0084				lwr2upr endp 
+				 
+ 0084				code ends 
+				end start 
+Microsoft (R) Macro Assembler Version 5.00                  5/12/14 20:06:08
+                                                             Symbols-1
+
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+CODE . . . . . . . . . . . . . .  	0084	PARA	NONE	
+DATA . . . . . . . . . . . . . .  	0072	PARA	NONE	
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+ACTLEN . . . . . . . . . . . . .  	L BYTE	0001	DATA
+
+BUFFER . . . . . . . . . . . . .  	L BYTE	0002	DATA	Length = 0020
+
+CRLF . . . . . . . . . . . . . .  	N PROC	0043	CODE	Length = 000D
+
+EXIT . . . . . . . . . . . . . .  	L NEAR	0083	CODE
+
+GETSTRING  . . . . . . . . . . .  	N PROC	0050	CODE	Length = 000E
+
+LEN_STR  . . . . . . . . . . . .  	NUMBER	0050	
+LWR2UPR  . . . . . . . . . . . .  	N PROC	005E	CODE	Length = 0026
+
+MAXLEN . . . . . . . . . . . . .  	L BYTE	0000	DATA
+
+NEXT . . . . . . . . . . . . . .  	L NEAR	0066	CODE
+
+SHOW . . . . . . . . . . . . . .  	N PROC	002C	CODE	Length = 0017
+START  . . . . . . . . . . . . .  	L NEAR	0000	CODE
+STRING . . . . . . . . . . . . .  	L BYTE	0022	DATA
+
+UPPER  . . . . . . . . . . . . .  	L NEAR	007B	CODE
+
+@FILENAME  . . . . . . . . . . .  	TEXT  work1		
+
+
+     91 Source  Lines
+     91 Total   Lines
+     17 Symbols
+
+  51060 + 465484 Bytes symbol space free
+
+      0 Warning Errors
+      0 Severe  Errors

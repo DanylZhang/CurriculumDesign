@@ -1,0 +1,214 @@
+Microsoft (R) Macro Assembler Version 5.00                  5/12/14 20:26:17
+                                                             Page     1-1
+
+
+ 0000				data segment 
+ 0000  0001 0001 0002 FFFE	 M dw 1,1,2,-2,3,-3,4,-4,5,-5,6,-6,7,-7,8,-8,9,
+				-9,10,-10 
+       0003 FFFD 0004 FFFC	
+       0005 FFFB 0006 FFFA	
+       0007 FFF9 0008 FFF8	
+       0009 FFF7 000A FFF6	
+ 0028  0014[			 P dw 20 dup(?) 
+	   ????			
+			 ]	
+				
+ 0050  0014[			 N dw 20 dup(?) 
+	   ????			
+			 ]	
+				
+ 0078  00			 P_count db 0 
+ 0079  00			 N_count db 0 
+ 007A  50 6F 73 69 74 69 76	 Pos_string db 'Positive numbers:$' 
+       65 20 6E 75 6D 62 65	
+       72 73 3A 24		
+ 008C  4E 65 67 61 74 69 76	 Neg_string db 'Negative numbers:$' 
+       65 20 6E 75 6D 62 65	
+       72 73 3A 24		
+ 009E  50 72 65 73 73 20 61	 Exit_string db 'Press any key to exit...$' 
+       6E 79 20 6B 65 79 20	
+       74 6F 20 65 78 69 74	
+       2E 2E 2E 24		
+ 00B7				data ends 
+				 
+ 0000				mystack segment 
+ 0000  0002[			 stack1 dw 2 dup(0) 
+	   0000			
+			 ]	
+				
+ 0004				mystack ends 
+				 
+ 0000				code segment 
+ 0000				main proc far 
+				assume cs:code,ds:data,ss:mystack 
+ 0000				start: 
+ 0000  B8 ---- R		mov ax,data 
+ 0003  8E D8			mov ds,ax 
+ 0005  B8 ---- R		mov ax,mystack 
+ 0008  8E D0			mov ss,ax 
+ 000A  BC 000A			mov sp,10 
+				 
+ 000D  BB FFFE			mov bx,0-2 
+ 0010  BE 0000			mov si,0	;正数数组指针 
+ 0013  BF 0000			mov di,0	;负数数组指针 
+ 0016  B9 0015			mov cx,20+1 
+ 0019				next: 
+ 0019  83 C3 02			add bx,2 
+ 001C  49			dec cx 
+ 001D  74 2A			jz print 
+Microsoft (R) Macro Assembler Version 5.00                  5/12/14 20:26:17
+                                                             Page     1-2
+
+
+ 001F  F7 87 0000 R FFFF	test M[bx],0ffffh 
+ 0025  78 11			js negative 
+				 
+ 0027				positive: 
+ 0027  8B 87 0000 R		mov ax,M[bx] 
+ 002B  89 84 0028 R		mov ds:P[si],ax 
+ 002F  FE 06 0078 R		inc P_count 
+ 0033  83 C6 02			add si,2 
+ 0036  EB E1			jmp next 
+				 
+ 0038				negative: 
+ 0038  8B 87 0000 R		mov ax,M[bx] 
+ 003C  89 85 0050 R		mov ds:N[di],ax 
+ 0040  FE 06 0079 R		inc N_count 
+ 0044  83 C7 02			add di,2 
+ 0047  EB D0			jmp next 
+				 
+ 0049				print: 
+ 0049  8D 16 007A R		lea dx,Pos_string 
+ 004D  B4 09			mov ah,9 
+ 004F  CD 21			int 21h 
+ 0051  A0 0078 R		mov al,P_count 
+ 0054  B9 0002			mov cx,2 
+ 0057				P_next: 
+ 0057  99			cwd 
+ 0058  D4 0A			aam 
+ 005A  8A D0			mov dl,al	;余数在al中 
+ 005C  B6 00			mov dh,0 
+ 005E  52			push dx 
+ 005F  8A C4			mov al,ah 
+ 0061  3C 00			cmp al,0 
+ 0063  E0 F2			loopne P_next	;二进制转十进制并压栈 
+ 0065  B9 0002			mov cx,2 
+ 0068				P_out: 
+ 0068  5A			pop dx 
+ 0069  80 C2 30			add dl,30h 
+ 006C  B4 02			mov ah,2 
+ 006E  CD 21			int 21h 
+ 0070  83 FC 0A			cmp sp,10 
+ 0073  E0 F3			loopnz P_out 
+ 0075  E8 00AB R		call crlf 
+				 
+ 0078  8D 16 008C R		lea dx,Neg_string 
+ 007C  B4 09			mov ah,9 
+ 007E  CD 21			int 21h 
+ 0080  A0 0079 R		mov al,N_count 
+ 0083  B9 0002			mov cx,2 
+ 0086				N_next: 
+ 0086  99			cwd 
+ 0087  D4 0A			aam 
+ 0089  8A D0			mov dl,al	;余数在al中 
+ 008B  B6 00			mov dh,0 
+ 008D  52			push dx 
+ 008E  8A C4			mov al,ah 
+Microsoft (R) Macro Assembler Version 5.00                  5/12/14 20:26:17
+                                                             Page     1-3
+
+
+ 0090  3C 00			cmp al,0 
+ 0092  E0 F2			loopne N_next	;二进制转十进制并压栈 
+ 0094  B9 0002			mov cx,2 
+ 0097				N_out: 
+ 0097  5A			pop dx 
+ 0098  80 C2 30			add dl,30h 
+ 009B  B4 02			mov ah,2 
+ 009D  CD 21			int 21h 
+ 009F  83 FC 0A			cmp sp,10 
+ 00A2  E0 F3			loopnz N_out 
+ 00A4  E8 00AB R		call crlf 
+ 00A7  E8 00B8 R		call exit 
+ 00AA  CB			ret 
+ 00AB				main endp 
+				 
+ 00AB				crlf proc near 
+ 00AB  B2 0D			mov dl,0dh 
+ 00AD  B4 02			mov ah,2 
+ 00AF  CD 21			int 21h 
+ 00B1  B2 0A			mov dl,0ah 
+ 00B3  B4 02			mov ah,2 
+ 00B5  CD 21			int 21h 
+ 00B7  C3			ret 
+ 00B8				crlf endp 
+				 
+ 00B8				exit proc near 
+ 00B8  B8 ---- R		mov ax,data 
+ 00BB  8E D8			mov ds,ax 
+ 00BD  8D 16 009E R		lea dx,Exit_string 
+ 00C1  B4 09			mov ah,9 
+ 00C3  CD 21			int 21h 
+ 00C5  B4 07			mov ah,7 
+ 00C7  CD 21			int 21h 
+ 00C9  B8 4C00			mov ax,4c00h 
+ 00CC  CD 21			int 21h 
+ 00CE  C3			ret 
+ 00CF				exit endp 
+				 
+ 00CF				code ends 
+				end start 
+Microsoft (R) Macro Assembler Version 5.00                  5/12/14 20:26:17
+                                                             Symbols-1
+
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+CODE . . . . . . . . . . . . . .  	00CF	PARA	NONE	
+DATA . . . . . . . . . . . . . .  	00B7	PARA	NONE	
+MYSTACK  . . . . . . . . . . . .  	0004	PARA	NONE	
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+CRLF . . . . . . . . . . . . . .  	N PROC	00AB	CODE	Length = 000D
+
+EXIT . . . . . . . . . . . . . .  	N PROC	00B8	CODE	Length = 0017
+EXIT_STRING  . . . . . . . . . .  	L BYTE	009E	DATA
+
+M  . . . . . . . . . . . . . . .  	L WORD	0000	DATA
+MAIN . . . . . . . . . . . . . .  	F PROC	0000	CODE	Length = 00AB
+
+N  . . . . . . . . . . . . . . .  	L WORD	0050	DATA	Length = 0014
+NEGATIVE . . . . . . . . . . . .  	L NEAR	0038	CODE
+NEG_STRING . . . . . . . . . . .  	L BYTE	008C	DATA
+NEXT . . . . . . . . . . . . . .  	L NEAR	0019	CODE
+N_COUNT  . . . . . . . . . . . .  	L BYTE	0079	DATA
+N_NEXT . . . . . . . . . . . . .  	L NEAR	0086	CODE
+N_OUT  . . . . . . . . . . . . .  	L NEAR	0097	CODE
+
+P  . . . . . . . . . . . . . . .  	L WORD	0028	DATA	Length = 0014
+POSITIVE . . . . . . . . . . . .  	L NEAR	0027	CODE
+POS_STRING . . . . . . . . . . .  	L BYTE	007A	DATA
+PRINT  . . . . . . . . . . . . .  	L NEAR	0049	CODE
+P_COUNT  . . . . . . . . . . . .  	L BYTE	0078	DATA
+P_NEXT . . . . . . . . . . . . .  	L NEAR	0057	CODE
+P_OUT  . . . . . . . . . . . . .  	L NEAR	0068	CODE
+
+STACK1 . . . . . . . . . . . . .  	L WORD	0000	MYSTACK	Length = 0002
+START  . . . . . . . . . . . . .  	L NEAR	0000	CODE
+
+@FILENAME  . . . . . . . . . . .  	TEXT  work6		
+
+
+    127 Source  Lines
+    127 Total   Lines
+     26 Symbols
+
+  51020 + 465524 Bytes symbol space free
+
+      0 Warning Errors
+      0 Severe  Errors

@@ -1,0 +1,93 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:陕西师范大学铃声小贴士" x:Class="陕西师范大学铃声小贴士.LinearGradientWindow"
+        mc:Ignorable="d"
+        Title="LinearGradientWindow" x:Name="RingWindow" Width="600" Height="380" WindowStartupLocation="CenterScreen" WindowState="Maximized" WindowStyle="None" Topmost="True" Loaded="Window_Loaded">
+    <Window.Resources>
+        <!--旋转出场-->
+        <Storyboard x:Key="showRingWindow">
+            <DoubleAnimation Storyboard.TargetName="Canvas1"
+        		Storyboard.TargetProperty="Opacity"
+        		From="0.2" To="1" Duration="0:0:2.5"/>
+            <DoubleAnimation Storyboard.TargetName="Canvas1"
+        		Storyboard.TargetProperty="RenderTransform.Children[1].Angle"
+        		From="70" To="0" Duration="0:0:2" />
+            <DoubleAnimation Storyboard.TargetName="Canvas1"
+        		Storyboard.TargetProperty="RenderTransform.Children[0].ScaleX"
+        		From="0" To="1" Duration="0:0:2" 
+        		AccelerationRatio="1"/>
+            <DoubleAnimation Storyboard.TargetName="Canvas1"
+        		Storyboard.TargetProperty="RenderTransform.Children[0].ScaleY"
+        		From="0" To="1" Duration="0:0:2" 
+        		AccelerationRatio="1"/>
+            <DoubleAnimation Storyboard.TargetName="Canvas1"
+        		Storyboard.TargetProperty="RenderTransform.Children[0].ScaleX"
+        		To="0.98" BeginTime="0:0:2" Duration="0:0:0.05" 
+        		DecelerationRatio="1"/>
+            <DoubleAnimation Storyboard.TargetName="Canvas1"
+        		Storyboard.TargetProperty="RenderTransform.Children[0].ScaleY"
+        		To="0.98" BeginTime="0:0:2" Duration="0:0:0.05" 
+        		DecelerationRatio="1"/>
+        </Storyboard>
+    </Window.Resources>
+    <Window.Triggers>
+        <EventTrigger SourceName="RingWindow" RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard Storyboard="{StaticResource showRingWindow}"/>
+        </EventTrigger>
+    </Window.Triggers>
+
+    <Grid>
+        <Grid.Triggers>
+            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation From="0" To="360" AccelerationRatio="0.4" DecelerationRatio="0.3" Duration="0:0:5" Storyboard.TargetName="angle1" Storyboard.TargetProperty="Angle" AutoReverse="True" RepeatBehavior="Forever"/>
+                        <DoubleAnimation To="1" Duration="0:0:2" Storyboard.TargetName="angle1" Storyboard.TargetProperty="CenterX" AutoReverse="True" RepeatBehavior="Forever"/>
+                        <DoubleAnimation To="0" Duration="0:0:4" Storyboard.TargetName="angle1" Storyboard.TargetProperty="CenterY" AutoReverse="True" RepeatBehavior="Forever"/>
+                        <ColorAnimation To="LightGray" Duration="0:0:2" Storyboard.TargetProperty="Background.GradientStops[0].Color" AutoReverse="True" RepeatBehavior="Forever"/>
+                        <ColorAnimation To="Pink" Duration="0:0:2" Storyboard.TargetProperty="Background.GradientStops[3].Color" AutoReverse="True" RepeatBehavior="Forever"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Grid.Triggers>
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                <LinearGradientBrush.RelativeTransform>
+                    <TransformGroup>
+                        <RotateTransform x:Name="angle1" CenterX="0" CenterY="1" Angle="0"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </LinearGradientBrush.RelativeTransform>
+                <GradientStop Color="#CC137CD8" Offset="0"/>
+                <GradientStop Color="#CCF55FE1" Offset="0.25"/>
+                <GradientStop Color="#CCDDF309" Offset="0.5"/>
+                <GradientStop Color="#FF2EF39A" Offset="0.75"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <TextBlock Foreground="DarkRed" Text="If you want to close this window, please click the Minions twice or wait for ten minutes." FontSize="20" HorizontalAlignment="Center"/>
+        <TextBlock Foreground="DarkRed" Opacity="0" Text="下课啦~" FontSize="100" FontFamily="/陕西师范大学铃声小贴士;component/Resources/Fonts/#DFPShaoNvW5-GB" FontWeight="Bold"  HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock.Triggers>
+                <EventTrigger RoutedEvent="TextBlock.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation From="0" To="1" BeginTime="0:0:2" Duration="0:0:3" Storyboard.TargetProperty="Opacity" AutoReverse="True" RepeatBehavior="Forever"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </TextBlock.Triggers>
+        </TextBlock>
+        <Canvas x:Name="Canvas1">
+            <Canvas.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform CenterX="100" CenterY="50"/>
+                    <RotateTransform CenterX="100" CenterY="50"/>
+                </TransformGroup>
+            </Canvas.RenderTransform>
+            <Image Source="Resources/Images/Minions1.png" x:Name="image1" Stretch="UniformToFill" Width="128" Height="128" HorizontalAlignment="Center" VerticalAlignment="Center" MouseLeftButtonUp="image1_MouseLeftButtonUp" MouseEnter="image1_MouseEnter"/>
+        </Canvas>
+    </Grid>
+</Window>

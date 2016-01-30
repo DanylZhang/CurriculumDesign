@@ -1,0 +1,133 @@
+Microsoft (R) Macro Assembler Version 5.00                  5/12/14 23:56:00
+                                                             Page     1-1
+
+
+ 0000				data segment 
+ 0000  0001 0000 0020 0006	 MEM dw 1,0,32,6,9,0,2,35,26,-1,-24,0,6,0,0,0,4
+				5,21,0,75	;20个 
+       0009 0000 0002 0023	
+       001A FFFF FFE8 0000	
+       0006 0000 0000 0000	
+       002D 0015 0000 004B	
+ 0028  000A[			     dw 10 dup(3) 
+	   0003			
+			 ]	
+				
+ 003C  000A[			     dw 10 dup(4) 
+	   0004			
+			 ]	
+				
+ 0050  000A[			     dw 10 dup(5) 
+	   0005			
+			 ]	
+				
+ 0064  000A[			     dw 10 dup(0) 
+	   0000			
+			 ]	
+				
+ 0078  000A[			     dw 10 dup(7) 
+	   0007			
+			 ]	
+				
+ 008C  000A[			     dw 10 dup(8) 
+	   0008			
+			 ]	
+				
+ 00A0  000A[			     dw 10 dup(9) 
+	   0009			
+			 ]	
+				
+ 00B4  000A[			     dw 10 dup(0) 
+	   0000			
+			 ]	
+				
+ 00C8				data ends 
+				 
+ 0000				code segment 
+				assume cs:code,ds:data 
+ 0000				start: 
+ 0000  B8 ---- R		mov ax,data 
+ 0003  8E D8			mov ds,ax 
+ 0005				begin: 
+ 0005  BE 00C6			mov si,(100-1)*2	;使si指向MEM的?
+				┰氐牡刂?
+ 0008  BB FFFE			mov bx,0-2		;地址指针的初值 
+ 000B  B9 0064			mov cx,100		;控制做100次循环 
+ 000E				comp: 
+Microsoft (R) Macro Assembler Version 5.00                  5/12/14 23:56:00
+                                                             Page     1-2
+
+
+ 000E  83 C3 02			add bx,2 
+ 0011				comp1: 
+ 0011  83 BF 0000 R 00		cmp MEM[bx],0 
+ 0016  74 05			jz cons 
+ 0018  E2 F4			loop comp 
+ 001A  EB 1A 90			jmp exit		;比较完了，已无0则结束 
+				 
+ 001D				cons: 
+ 001D  8B FB			mov di,bx 
+				 
+ 001F				cons1: 
+ 001F  3B FE			cmp di,si		;是否是最后一个元素？ 
+ 0021  73 0D			jae zero 
+ 0023  8B 85 0002 R		mov ax,MEM[di+2]	;后面的元素向前
+				移位 
+ 0027  89 85 0000 R		mov MEM[di],ax 
+ 002B  83 C7 02			add di,2 
+ 002E  EB EF			jmp cons1 
+ 0030				zero: 
+ 0030  C7 04 0000		mov word ptr [si],0	;最后元素置零 
+ 0034  E2 DB			loop comp1		;跳转到bx不加2继续循环 
+		
+ 0036				exit: 
+ 0036  B2 2A			mov dl,'*' 
+ 0038  B4 02			mov ah,2 
+ 003A  CD 21			int 21h 
+ 003C  B4 07			mov ah,7 
+ 003E  CD 21			int 21h 
+ 0040  B8 4C00			mov ax,4c00h 
+ 0043  CD 21			int 21h 
+ 0045				code ends 
+				end start 
+Microsoft (R) Macro Assembler Version 5.00                  5/12/14 23:56:00
+                                                             Symbols-1
+
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+CODE . . . . . . . . . . . . . .  	0045	PARA	NONE	
+DATA . . . . . . . . . . . . . .  	00C8	PARA	NONE	
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+BEGIN  . . . . . . . . . . . . .  	L NEAR	0005	CODE
+
+COMP . . . . . . . . . . . . . .  	L NEAR	000E	CODE
+COMP1  . . . . . . . . . . . . .  	L NEAR	0011	CODE
+CONS . . . . . . . . . . . . . .  	L NEAR	001D	CODE
+CONS1  . . . . . . . . . . . . .  	L NEAR	001F	CODE
+
+EXIT . . . . . . . . . . . . . .  	L NEAR	0036	CODE
+
+MEM  . . . . . . . . . . . . . .  	L WORD	0000	DATA
+
+START  . . . . . . . . . . . . .  	L NEAR	0000	CODE
+
+ZERO . . . . . . . . . . . . . .  	L NEAR	0030	CODE
+
+@FILENAME  . . . . . . . . . . .  	TEXT  work12		
+
+
+     53 Source  Lines
+     53 Total   Lines
+     13 Symbols
+
+  50970 + 465574 Bytes symbol space free
+
+      0 Warning Errors
+      0 Severe  Errors

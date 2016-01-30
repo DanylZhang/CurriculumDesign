@@ -1,0 +1,54 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta content="IE=7.0000" http-equiv="X-UA-Compatible">
+    <meta name="GENERATOR" content="MSHTML 11.00.9600.17496">
+    <title>404-陕师大综合信息系统</title>
+    <link href="../../Content/reset2.css" rel="stylesheet" />
+    <link href="../../Content/login.css" rel="stylesheet" />
+    <link href="~/Content/reset.css" rel="stylesheet" />
+    <link href="~/Content/supersized.css" rel="stylesheet" />
+    <link href="~/Content/style404.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/supersized.3.2.7.min.js"></script>
+    <script src="~/Scripts/supersized-init.js"></script>
+    <script src="~/Scripts/scripts.js"></script>
+</head>
+
+<body>
+    <div id="loading" style="display: none;"></div>
+    <div id="logoLogin">
+        <a href="#">
+            <img alt="陕师大" src="../../Images/logo.png" />
+        </a>
+    </div>
+    <div class="wrap">
+        <div class="content">
+            <div class="logo">
+                <h1><a href="#"><img src="../../Images/error404.png" /></a></h1>
+                <span><img src="../../Images/signal.png" />Oops! 这个页面不知道被谁吃了！</span>
+            </div>
+            <div class="buttom">
+                <div class="seach_bar">
+                    <p>你可以去<span><a href=@Url.Action("Index","MyInfo") style="color:rgba(76, 255, 0, 0.64)">我的主页</a></span>或者在此搜索</p>
+                    <div class="search_box">
+                        <form>
+                            <input type="text" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}"><input type="submit" value="">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="copyright">
+            <strong></strong><p>&copy; @DateTime.Now.Year - 张丹玉 41212205 版权所有</p>
+            <p></p>
+        </div>
+    </div>
+</body>
+</html>

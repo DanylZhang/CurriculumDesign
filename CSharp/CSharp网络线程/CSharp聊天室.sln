@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.22310.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileOperator", "FileOperator\FileOperator.csproj", "{6F9C41DF-225D-4163-985C-247B002DE13B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiThread", "MultiThread\MultiThread.csproj", "{1DD9F55F-22B4-490C-BE63-ACCA6F67999A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyChatSoftClient", "MyChatSoftClient\MyChatSoftClient.csproj", "{24199CE8-4192-4D97-A969-7FF73CF929A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "摇奖机", "摇奖机\摇奖机.csproj", "{CA2E3991-6FE9-4E81-9895-FAC200EEECDA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyChatSoftServer", "MyChatSoftServer\MyChatSoftServer.csproj", "{422734C7-7089-4833-AE2B-4BAD26A7B73B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6F9C41DF-225D-4163-985C-247B002DE13B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F9C41DF-225D-4163-985C-247B002DE13B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F9C41DF-225D-4163-985C-247B002DE13B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F9C41DF-225D-4163-985C-247B002DE13B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DD9F55F-22B4-490C-BE63-ACCA6F67999A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DD9F55F-22B4-490C-BE63-ACCA6F67999A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DD9F55F-22B4-490C-BE63-ACCA6F67999A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DD9F55F-22B4-490C-BE63-ACCA6F67999A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24199CE8-4192-4D97-A969-7FF73CF929A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24199CE8-4192-4D97-A969-7FF73CF929A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24199CE8-4192-4D97-A969-7FF73CF929A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24199CE8-4192-4D97-A969-7FF73CF929A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA2E3991-6FE9-4E81-9895-FAC200EEECDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA2E3991-6FE9-4E81-9895-FAC200EEECDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA2E3991-6FE9-4E81-9895-FAC200EEECDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA2E3991-6FE9-4E81-9895-FAC200EEECDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{422734C7-7089-4833-AE2B-4BAD26A7B73B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{422734C7-7089-4833-AE2B-4BAD26A7B73B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{422734C7-7089-4833-AE2B-4BAD26A7B73B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{422734C7-7089-4833-AE2B-4BAD26A7B73B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

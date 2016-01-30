@@ -1,0 +1,39 @@
+﻿@using Danyl.SnnuURP.Model;
+
+@{
+    ViewBag.Title = "我的课程";
+    Layout = "~/Areas/Teacher/Views/Shared/_Layout.cshtml";
+}
+<h2 class="mbx">教务中心 &gt; 我的课程</h2>
+<div class="cztable">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="height: 25px" align="center">
+            <th>课程号</th>
+            <th>课程名</th>
+            <th>课程类型</th>
+            <th>学期</th>
+            <th>学分</th>
+            <th>学时</th>
+        </tr>
+        @if (ViewBag.TeachList == null)
+        {
+            <tr align="center">
+                <td colspan="13" align="left" style="color: Red; font-weight:bold;">未找到课程信息！</td>
+            </tr>
+        }
+        else
+        {
+            foreach (TeachCourseView Teach in ViewBag.TeachList)
+            {
+                <tr align="center">
+                    <td>@Teach.Cid</td>
+                    <td>@Teach.Cname</td>
+                    <td>@Teach.CourseAttribute</td>
+                    <td>@Teach.Semaster</td>
+                    <td>@Teach.Credit</td>
+                    <td>@Teach.Hours</td>
+                </tr>
+            }
+        }
+    </table>
+</div>

@@ -1,0 +1,154 @@
+Microsoft (R) Macro Assembler Version 5.00                  5/12/14 20:36:49
+                                                             Page     1-1
+
+
+ 0000				data segment 
+ 0000  54 48 45 20 53 55 4E	 ENG db 'THE SUN CAME OUT, WHAT COLOR SHOULD I 
+				CHOOSE FOR MY SSUNGLASSUNS?$' 
+       20 43 41 4D 45 20 4F	
+       55 54 2C 20 57 48 41	
+       54 20 43 4F 4C 4F 52	
+       20 53 48 4F 55 4C 44	
+       20 49 20 43 48 4F 4F	
+       53 45 20 46 4F 52 20	
+       4D 59 20 53 53 55 4E	
+       47 4C 41 53 53 55 4E	
+       53 3F 24			
+ = 0041				 len_ENG equ $-ENG-1 
+ 0042  53 55 4E 00 24		 SUN db 'SUN',0h,'$' 
+ = 0004				 len_SUN equ $-SUN-1 
+ 0047				data ends 
+				 
+ 0000				mystack segment 
+ 0000  0005[			 stack1 dw 5 dup(?) 
+	   ????			
+			 ]	
+				
+ 000A				mystack ends 
+				 
+ 0000				code segment 
+				assume cs:code,ds:data,ss:mystack 
+ 0000				start: 
+ 0000  B8 ---- R		mov ax,data 
+ 0003  8E D8			mov ds,ax 
+ 0005  8E C0			mov es,ax 
+ 0007  B8 ---- R		mov ax,mystack 
+ 000A  8E D0			mov ss,ax 
+ 000C  BC 000A			mov sp,10 
+				 
+ 000F				showENG: 
+ 000F  8D 16 0000 R		lea dx,ENG 
+ 0013  B4 09			mov ah,9 
+ 0015  CD 21			int 21h 
+				 
+ 0017				crlf: 
+ 0017  B2 0D			mov dl,0dh 
+ 0019  B4 02			mov ah,2 
+ 001B  CD 21			int 21h 
+ 001D  B2 0A			mov dl,0ah 
+ 001F  B4 02			mov ah,2 
+ 0021  CD 21			int 21h 
+				 
+ 0023				showSUN: 
+ 0023  8D 16 0042 R		lea dx,SUN 
+ 0027  B4 09			mov ah,9 
+ 0029  CD 21			int 21h 
+				 
+ 002B  2B C0			sub ax,ax 
+ 002D  BE 0000			mov si,0 
+Microsoft (R) Macro Assembler Version 5.00                  5/12/14 20:36:49
+                                                             Page     1-2
+
+
+ 0030				compare: 
+ 0030  83 FE 3F			cmp si,len_ENG-2 
+ 0033  7F 1A			jg store 
+ 0035  B9 0004			mov cx,len_SUN 
+ 0038  8D 3E 0042 R		lea di,SUN 
+ 003C  FC			cld 
+ 003D  F3/ A6			repe cmpsb 
+ 003F  83 F9 02			cmp cx,2 
+ 0042  7F EC			jg compare 
+ 0044  83 F9 00			cmp cx,0 
+ 0047  7F 03			jg substract 
+ 0049  40			inc ax 
+ 004A  EB E4			jmp compare 
+ 004C				substract: 
+ 004C  4E			dec si 
+ 004D  EB E1			jmp compare 
+				 
+ 004F				store: 
+ 004F  BB 000A			mov bx,10 
+ 0052  99			cwd 
+ 0053  F7 F3			div bx 
+ 0055  52			push dx 
+ 0056  3D 0000			cmp ax,0 
+ 0059  75 F4			jnz store 
+				 
+ 005B  B2 3D			mov dl,'=' 
+ 005D  B4 02			mov ah,2 
+ 005F  CD 21			int 21h 
+ 0061  B2 20			mov dl,20h 
+ 0063  B4 02			mov ah,2 
+ 0065  CD 21			int 21h 
+ 0067				print: 
+ 0067  5A			pop dx 
+ 0068  80 C2 30			add dl,30h 
+ 006B  B4 02			mov ah,2 
+ 006D  CD 21			int 21h 
+ 006F  83 FC 0A			cmp sp,10 
+ 0072  75 F3			jne print 
+				 
+ 0074				exit: 
+ 0074  B4 07			mov ah,7 
+ 0076  CD 21			int 21h 
+ 0078  B4 4C			mov ah,4ch 
+ 007A  CD 21			int 21h 
+ 007C				code ends 
+				end start 
+Microsoft (R) Macro Assembler Version 5.00                  5/12/14 20:36:49
+                                                             Symbols-1
+
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+CODE . . . . . . . . . . . . . .  	007C	PARA	NONE	
+DATA . . . . . . . . . . . . . .  	0047	PARA	NONE	
+MYSTACK  . . . . . . . . . . . .  	000A	PARA	NONE	
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+COMPARE  . . . . . . . . . . . .  	L NEAR	0030	CODE
+CRLF . . . . . . . . . . . . . .  	L NEAR	0017	CODE
+
+ENG  . . . . . . . . . . . . . .  	L BYTE	0000	DATA
+EXIT . . . . . . . . . . . . . .  	L NEAR	0074	CODE
+
+LEN_ENG  . . . . . . . . . . . .  	NUMBER	0041	
+LEN_SUN  . . . . . . . . . . . .  	NUMBER	0004	
+
+PRINT  . . . . . . . . . . . . .  	L NEAR	0067	CODE
+
+SHOWENG  . . . . . . . . . . . .  	L NEAR	000F	CODE
+SHOWSUN  . . . . . . . . . . . .  	L NEAR	0023	CODE
+STACK1 . . . . . . . . . . . . .  	L WORD	0000	MYSTACK	Length = 0005
+START  . . . . . . . . . . . . .  	L NEAR	0000	CODE
+STORE  . . . . . . . . . . . . .  	L NEAR	004F	CODE
+SUBSTRACT  . . . . . . . . . . .  	L NEAR	004C	CODE
+SUN  . . . . . . . . . . . . . .  	L BYTE	0042	DATA
+
+@FILENAME  . . . . . . . . . . .  	TEXT  work10		
+
+
+     87 Source  Lines
+     87 Total   Lines
+     19 Symbols
+
+  51124 + 465420 Bytes symbol space free
+
+      0 Warning Errors
+      0 Severe  Errors

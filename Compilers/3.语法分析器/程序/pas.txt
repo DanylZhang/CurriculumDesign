@@ -1,0 +1,6 @@
+begin
+	while(value1<100) do
+		if(c<temp) then x1:=y2+z2;	
+	if(a>=temp) then b:=(a+100.3)*f2
+	else b:=(a+100.4)/f2
+end#~

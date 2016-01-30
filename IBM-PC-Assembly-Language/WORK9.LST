@@ -1,0 +1,149 @@
+Microsoft (R) Macro Assembler Version 5.00                  5/12/14 20:35:22
+                                                             Page     1-1
+
+
+ 0000				code segment 
+				assume cs:code 
+ 0000				start: 
+ 0000  BB 0000			mov bx,0 
+ 0003  B5 04			mov ch,4 
+ 0005  B1 04			mov cl,4 
+ 0007				next: 
+ 0007  B4 07			mov ah,7 
+ 0009  CD 21			int 21h 
+ 000B  3C 30			cmp al,30h 
+ 000D  7C F8			jl next 
+ 000F  3C 39			cmp al,39h 
+ 0011  7E 12			jle storeNumber 
+ 0013  3C 41			cmp al,41h 
+ 0015  7C F0			jl next 
+ 0017  3C 46			cmp al,46h 
+ 0019  7E 20			jle storeUpper 
+ 001B  3C 61			cmp al,61h 
+ 001D  7C E8			jl next 
+ 001F  3C 66			cmp al,66h 
+ 0021  7E 2E			jle storeLower 
+ 0023  EB E2			jmp next 
+				 
+ 0025				storeNumber: 
+ 0025  8A D0			mov dl,al 
+ 0027  B4 02			mov ah,2 
+ 0029  CD 21			int 21h 
+ 002B  2C 30			sub al,30h 
+ 002D  2A E4			sub ah,ah 
+ 002F  24 0F			and al,0fh 
+ 0031  0B D8			or bx,ax 
+ 0033  FE CD			dec ch 
+ 0035  74 32			jz print 
+ 0037  D3 E3			shl bx,cl 
+ 0039  EB CC			jmp next 
+				 
+ 003B				storeUpper: 
+ 003B  8A D0			mov dl,al 
+ 003D  B4 02			mov ah,2 
+ 003F  CD 21			int 21h 
+ 0041  2C 37			sub al,37h 
+ 0043  2A E4			sub ah,ah 
+ 0045  24 0F			and al,0fh 
+ 0047  0B D8			or bx,ax 
+ 0049  FE CD			dec ch 
+ 004B  74 1C			jz print 
+ 004D  D3 E3			shl bx,cl 
+ 004F  EB B6			jmp next 
+				 
+ 0051				storeLower: 
+ 0051  2C 20			sub al,20h 
+ 0053  8A D0			mov dl,al 
+ 0055  B4 02			mov ah,2 
+ 0057  CD 21			int 21h 
+Microsoft (R) Macro Assembler Version 5.00                  5/12/14 20:35:22
+                                                             Page     1-2
+
+
+ 0059  2C 37			sub al,37h 
+ 005B  2A E4			sub ah,ah 
+ 005D  24 0F			and al,0fh 
+ 005F  0B D8			or bx,ax 
+ 0061  FE CD			dec ch 
+ 0063  74 04			jz print 
+ 0065  D3 E3			shl bx,cl 
+ 0067  EB 9E			jmp next 
+				 
+ 0069				print: 
+ 0069  B2 0D			mov dl,0dh 
+ 006B  B4 02			mov ah,2 
+ 006D  CD 21			int 21h 
+ 006F  B2 0A			mov dl,0ah 
+ 0071  B4 02			mov ah,2 
+ 0073  CD 21			int 21h 
+				 
+ 0075  B9 0010			mov cx,16 
+ 0078				hex2bin: 
+ 0078  F7 C3 FFFF		test bx,0ffffh 
+ 007C  78 0D			js print1 
+				 
+ 007E				print0: 
+ 007E  B2 30			mov dl,30h 
+ 0080  B4 02			mov ah,2 
+ 0082  CD 21			int 21h 
+ 0084  D1 E3			shl bx,1 
+ 0086  49			dec cx 
+ 0087  74 0F			jz exit 
+ 0089  EB ED			jmp hex2bin 
+				 
+ 008B				print1: 
+ 008B  B2 31			mov dl,31h 
+ 008D  B4 02			mov ah,2 
+ 008F  CD 21			int 21h 
+ 0091  D1 E3			shl bx,1 
+ 0093  49			dec cx 
+ 0094  74 02			jz exit 
+ 0096  EB E0			jmp hex2bin 
+				 
+ 0098				exit: 
+ 0098  B4 07			mov ah,7 
+ 009A  CD 21			int 21h 
+ 009C  B8 4C00			mov ax,4c00h 
+ 009F  CD 21			int 21h 
+ 00A1				code ends 
+				end start 
+Microsoft (R) Macro Assembler Version 5.00                  5/12/14 20:35:22
+                                                             Symbols-1
+
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+CODE . . . . . . . . . . . . . .  	00A1	PARA	NONE	
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+EXIT . . . . . . . . . . . . . .  	L NEAR	0098	CODE
+
+HEX2BIN  . . . . . . . . . . . .  	L NEAR	0078	CODE
+
+NEXT . . . . . . . . . . . . . .  	L NEAR	0007	CODE
+
+PRINT  . . . . . . . . . . . . .  	L NEAR	0069	CODE
+PRINT0 . . . . . . . . . . . . .  	L NEAR	007E	CODE
+PRINT1 . . . . . . . . . . . . .  	L NEAR	008B	CODE
+
+START  . . . . . . . . . . . . .  	L NEAR	0000	CODE
+STORELOWER . . . . . . . . . . .  	L NEAR	0051	CODE
+STORENUMBER  . . . . . . . . . .  	L NEAR	0025	CODE
+STOREUPPER . . . . . . . . . . .  	L NEAR	003B	CODE
+
+@FILENAME  . . . . . . . . . . .  	TEXT  work9		
+
+
+    101 Source  Lines
+    101 Total   Lines
+     13 Symbols
+
+  51218 + 465326 Bytes symbol space free
+
+      0 Warning Errors
+      0 Severe  Errors

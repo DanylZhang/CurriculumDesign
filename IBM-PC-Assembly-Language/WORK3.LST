@@ -1,0 +1,73 @@
+Microsoft (R) Macro Assembler Version 5.00                  5/12/14 20:19:48
+                                                             Page     1-1
+
+
+ 0000				data segment 
+ 0000  0004[			 buffer db 4 dup(?) 
+	    ??			
+			 ]	
+				
+ 0004				data ends 
+				 
+ 0000				code segment 
+ 0000				main proc far 
+				assume cs:code,ds:data 
+ 0000				start: 
+ 0000  B8 ---- R		mov ax,data 
+ 0003  8E D8			mov ds,ax 
+				 
+ 0005  B1 04			mov cl,4 
+ 0007  B5 04			mov ch,4 
+ 0009  BB 0000			mov bx,0 
+ 000C  B8 1234			mov ax,1234h 
+ 000F				next: 
+ 000F  D3 C0			rol ax,cl 
+ 0011  8A D0			mov dl,al 
+ 0013  80 E2 0F			and dl,0fh 
+ 0016  88 97 0000 R		mov buffer[bx],dl 
+ 001A  43			inc bx 
+ 001B  FE CD			dec ch 
+ 001D  75 F0			jnz next 
+				 
+ 001F  A0 0000 R		mov al,buffer 
+ 0022  8A 1E 0001 R		mov bl,buffer+1 
+ 0026  8A 0E 0002 R		mov cl,buffer+2 
+ 002A  8A 16 0003 R		mov dl,buffer+3 
+ 002E  CB			ret 
+ 002F				main endp 
+ 002F				code ends 
+				end start 
+Microsoft (R) Macro Assembler Version 5.00                  5/12/14 20:19:48
+                                                             Symbols-1
+
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+CODE . . . . . . . . . . . . . .  	002F	PARA	NONE	
+DATA . . . . . . . . . . . . . .  	0004	PARA	NONE	
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+BUFFER . . . . . . . . . . . . .  	L BYTE	0000	DATA	Length = 0004
+
+MAIN . . . . . . . . . . . . . .  	F PROC	0000	CODE	Length = 002F
+
+NEXT . . . . . . . . . . . . . .  	L NEAR	000F	CODE
+
+START  . . . . . . . . . . . . .  	L NEAR	0000	CODE
+
+@FILENAME  . . . . . . . . . . .  	TEXT  work3		
+
+
+     32 Source  Lines
+     32 Total   Lines
+      8 Symbols
+
+  51098 + 465446 Bytes symbol space free
+
+      0 Warning Errors
+      0 Severe  Errors

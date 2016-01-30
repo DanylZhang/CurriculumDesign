@@ -1,0 +1,149 @@
+Microsoft (R) Macro Assembler Version 5.00                  5/12/14 20:27:46
+                                                             Page     1-1
+
+
+ 0000				dataseg segment 
+ 0000  0001 0004 0003 0006	 DATA dw 1,4,3,6,5,2,7,8,9,10 
+       0005 0002 0007 0008	
+       0009 000A		
+ 0014  005A[			      dw 90 dup(20)	;后面90个数用20补 
+	   0014			
+			 ]	
+				
+ 00C8  54 68 65 20 73 6D 61	 string db 'The smallest even number: $' 
+       6C 6C 65 73 74 20 65	
+       76 65 6E 20 6E 75 6D	
+       62 65 72 3A 20 24	
+ 00E3				dataseg ends 
+				 
+ 0000				mystack segment 
+ 0000  000A[			 stack1 dw 10 dup(?) 
+	   ????			
+			 ]	
+				
+ 0014				mystack ends 
+				 
+ 0000				code segment 
+				assume cs:code,ds:dataseg,ss:mystack 
+ 0000				start: 
+ 0000  B8 ---- R		mov ax,dataseg 
+ 0003  8E D8			mov ds,ax 
+ 0005  B8 ---- R		mov ax,mystack 
+ 0008  8E D0			mov ss,ax 
+ 000A  BC 000A			mov sp,10 
+				 
+				;先找到一个偶数 
+ 000D  BB 0000			mov bx,0 
+ 0010  B2 02			mov dl,2 
+ 0012				findFirst: 
+ 0012  81 FB 00C8		cmp bx,200 
+ 0016  74 60			je exit 
+ 0018  8B 87 0000 R		mov ax,DATA[bx] 
+ 001C  83 C3 02			add bx,2 
+ 001F  F6 F2			div dl 
+ 0021  80 FC 00			cmp ah,0 
+ 0024  75 EC			jnz findFirst 
+				 
+ 0026  83 EB 02			sub bx,2 
+ 0029  8B F3			mov si,bx 
+ 002B				findLittle: 
+ 002B  81 FB 00C6		cmp bx,198 
+ 002F  74 1C			je foundOne 
+ 0031  83 C3 02			add bx,2 
+ 0034  8B 87 0000 R		mov ax,DATA[bx] 
+ 0038  F6 F2			div dl 
+ 003A  80 FC 00			cmp ah,0 
+ 003D  75 EC			jnz findLittle 
+				 
+Microsoft (R) Macro Assembler Version 5.00                  5/12/14 20:27:46
+                                                             Page     1-2
+
+
+ 003F  8B 84 0000 R		mov ax,DATA[si] 
+ 0043  3B 87 0000 R		cmp ax,DATA[bx] 
+ 0047  7E E2			jle findLittle 
+ 0049  8B F3			mov si,bx 
+ 004B  EB DE			jmp findLittle 
+				 
+ 004D				foundOne: 
+ 004D  8B 84 0000 R		mov ax,DATA[si] 
+ 0051  BB 000A			mov bx,10 
+ 0054  B9 0006			mov cx,6 
+ 0057				loop1: 
+ 0057  99			cwd 
+ 0058  F7 F3			div bx 
+ 005A  52			push dx 
+ 005B  3D 0000			cmp ax,0 
+ 005E  E0 F7			loopnz loop1 
+				 
+ 0060				print: 
+ 0060  8D 16 00C8 R		lea dx,string 
+ 0064  B4 09			mov ah,9 
+ 0066  CD 21			int 21h 
+				 
+ 0068  B9 0006			mov cx,6 
+ 006B				loop2: 
+ 006B  5A			pop dx 
+ 006C  80 C2 30			add dl,30h 
+ 006F  B4 02			mov ah,2 
+ 0071  CD 21			int 21h 
+ 0073  83 FC 0A			cmp sp,10 
+ 0076  E0 F3			loopne loop2		;输出结果 
+				 
+ 0078				exit: 
+ 0078  B2 0D			mov dl,0dh 
+ 007A  B4 02			mov ah,2 
+ 007C  CD 21			int 21h 
+ 007E  B2 0A			mov dl,0ah 
+ 0080  B4 02			mov ah,2 
+ 0082  CD 21			int 21h 
+ 0084  B4 07			mov ah,7 
+ 0086  CD 21			int 21h 
+ 0088  B8 4C00			mov ax,4c00h 
+ 008B  CD 21			int 21h 
+ 008D				code ends 
+				end start 
+Microsoft (R) Macro Assembler Version 5.00                  5/12/14 20:27:46
+                                                             Symbols-1
+
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+CODE . . . . . . . . . . . . . .  	008D	PARA	NONE	
+DATASEG  . . . . . . . . . . . .  	00E3	PARA	NONE	
+MYSTACK  . . . . . . . . . . . .  	0014	PARA	NONE	
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+DATA . . . . . . . . . . . . . .  	L WORD	0000	DATASEG
+
+EXIT . . . . . . . . . . . . . .  	L NEAR	0078	CODE
+
+FINDFIRST  . . . . . . . . . . .  	L NEAR	0012	CODE
+FINDLITTLE . . . . . . . . . . .  	L NEAR	002B	CODE
+FOUNDONE . . . . . . . . . . . .  	L NEAR	004D	CODE
+
+LOOP1  . . . . . . . . . . . . .  	L NEAR	0057	CODE
+LOOP2  . . . . . . . . . . . . .  	L NEAR	006B	CODE
+
+PRINT  . . . . . . . . . . . . .  	L NEAR	0060	CODE
+
+STACK1 . . . . . . . . . . . . .  	L WORD	0000	MYSTACK	Length = 000A
+START  . . . . . . . . . . . . .  	L NEAR	0000	CODE
+STRING . . . . . . . . . . . . .  	L BYTE	00C8	DATASEG
+
+@FILENAME  . . . . . . . . . . .  	TEXT  work7		
+
+
+     86 Source  Lines
+     86 Total   Lines
+     16 Symbols
+
+  51060 + 465484 Bytes symbol space free
+
+      0 Warning Errors
+      0 Severe  Errors

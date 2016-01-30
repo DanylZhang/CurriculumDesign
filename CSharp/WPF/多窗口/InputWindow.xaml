@@ -1,0 +1,20 @@
+﻿<Window x:Class="多窗口.InputWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="新用户名" Height="150" Width="300">
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBox Name="txtboxName" Margin="15" Grid.Row="0" Grid.ColumnSpan="2"></TextBox>
+            <Button Name="btnOk" Content="确定" Margin="15" Grid.Row="1" Grid.Column="0" Click="btnOk_Click"></Button>
+            <Button Name="btnCancel" Content="取消" Margin="15" Grid.Row="1" Grid.Column="1" Click="btnCancel_Click"></Button>
+        </Grid>
+    </Grid>
+</Window>

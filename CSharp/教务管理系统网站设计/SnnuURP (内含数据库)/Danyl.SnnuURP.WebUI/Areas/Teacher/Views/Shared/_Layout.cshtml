@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - 陕师大教师信息管理系统</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <link href="~/Content/TeacherStyle.css" rel="stylesheet" />
+    <link href="~/Scripts/jBox/Skins/Blue/jbox.css" rel="stylesheet" />
+    <link href="~/Content/ks.css" rel="stylesheet" />
+
+    <script src="~/Scripts/jBox/jquery-1.4.2.min.js"></script>
+    <script src="~/Scripts/jBox/jquery.jBox-2.3.min.js"></script>
+    <script src="~/Script/jBox/i18n/jquery.jBox-zh-CN.js"></script>
+    <script src="~/Script/Common.js"></script>
+    <script src="~/Script/Data.js"></script>
+
+    <script type="text/javascript">
+        $().ready(function () {
+            setTeacherMsgHeadTabCheck();
+            showUnreadSysMsgCount();
+        });
+
+        //我的信息头部选项卡
+        function setStudMsgHeadTabCheck() {
+            var currentUrl = window.location.href;
+            currentUrl = currentUrl.toLowerCase();
+            var asmhm = "";
+            $("#ulTeacherdMsgHeadTab li").each(function () {
+                asmhm = $(this).find('a').attr("href").toLowerCase();
+                if (currentUrl.indexOf(asmhm) > 0) {
+                    $(this).find('a').attr("class", "tab1");
+                    return;
+                }
+            });
+        }
+    </script>
+
+    <script src="~/Script/changeOption.js"></script>
+    <script src="~/Script/rl.js"></script>
+
+</head>
+<body>
+    <div class="banner">
+        <div class="bgh">
+            <div class="page">
+                <div id="logo">
+                    <a href="#">
+                        <img src="~/Images/Teacher/logo.png" alt="" width="238" height="70" />
+                    </a>
+                </div>
+                <div class="topxx">
+                    @{
+                        if (Session["userid"] == null)
+                        {
+                            Response.Redirect("~/Teacher/Account/Login");
+                        }
+                    }
+                    @Session["username"] 工号：@Session["userid"]，欢迎您！
+                    <a href=@Url.Action("Info","MyInfo")>我的信息</a>
+                    <a href=@Url.Action("ResetPassword", "Account")>密码修改</a>
+                    <a href=@Url.Action("Login","Account")>安全退出</a>
+                </div>
+                <div class="blog_nav">
+                    <ul>
+                        <li><a href=@Url.Action("Index","MyInfo")>个人中心</a></li>
+                        <li><a href=@Url.Action("StudentGrade","EducationCenter")>教务中心</a></li>
+                        <li><a href=@Url.Action("Download","Material")>资料中心</a></li>
+                        <li><a href=@Url.Action("MyFinancial","FinancialCenter")>财务中心</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page">
+        <div class="box mtop">
+            <div class="leftbox">
+                <div class="l_nav2">
+                    <div class="ta1">
+                        <strong>个人中心</strong>
+                        <div class="leftbgbt">
+                        </div>
+                    </div>
+                    <div class="cdlist">
+                        <div>
+                            <a href=@Url.Action("Info","MyInfo")>我的信息</a>
+                        </div>
+                        <div>
+                            <a href=@Url.Action("CollegeMsg","Messege")>学院通知</a>
+
+                        </div>
+                        <div>
+                            <a href=@Url.Action("LetterMsg","Messege")>短信息</a>
+                        </div>
+                        <div>
+                            <a href=@Url.Action("Advice","Messege")>我的建议</a>
+                        </div>
+                    </div>
+                    <div class="ta1">
+                        <strong>教务中心</strong>
+                        <div class="leftbgbt2">
+                        </div>
+                    </div>
+                    <div class="cdlist">
+                        <div>
+                            <a href=@Url.Action("Teach","EducationCenter")>我的课程</a>
+                        </div>
+                        <div>
+                            <a href=@Url.Action("StudentGrade","EducationCenter")>学生成绩</a>
+                        </div>
+                        <div>
+                            <a href=@Url.Action("MyBook","EducationCenter")>我的书籍</a>
+                        </div>
+                    </div>
+                    <div class="ta1">
+                        <strong>资料中心</strong><div class="leftbgbt2">
+                        </div>
+                    </div>
+                    <div class="cdlist">
+                        <div>
+                            <a href=@Url.Action("Download","Material")>资料下载</a>
+                        </div>
+                    </div>
+
+                    <div class="ta1">
+                        <strong>财务中心</strong><div class="leftbgbt2">
+                        </div>
+                    </div>
+                    <div class="cdlist">
+                        <div>
+                            <a href=@Url.Action("MyFinancial","FinancialCenter")>我的财务</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="rightbox">
+                @RenderBody()
+            </div>
+        </div>
+        <div class="footer">
+            <p>&copy; @DateTime.Now.Year - 张丹玉 41212205 版权所有</p>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

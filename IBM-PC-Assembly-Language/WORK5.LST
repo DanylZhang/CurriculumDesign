@@ -1,0 +1,115 @@
+Microsoft (R) Macro Assembler Version 5.00                  5/12/14 20:24:24
+                                                             Page     1-1
+
+
+ 0000				data segment 
+ 0000  50 6C 65 61 73 65 20	 string db 'Please input N:' 
+       69 6E 70 75 74 20 4E	
+       3A			
+ = 000F				 len_str equ $-string 
+ 000F				data ends 
+				 
+ 0000				code segment 
+				assume cs:code,ds:data 
+ 0000				start: 
+ 0000  E8 002F R		call show 
+ 0003  E8 004D R		call crlf 
+				 
+ 0006				next: 
+ 0006  B4 07			mov ah,7 
+ 0008  CD 21			int 21h 
+ 000A  3C 30			cmp al,'0' 
+ 000C  7C F8			jl next 
+ 000E  3C 39			cmp al,'9' 
+ 0010  7F F4			jg next 
+ 0012  3C 30			cmp al,'0' 
+ 0014  74 14			je exit 
+				 
+ 0016  8A D0			mov dl,al 
+ 0018  B4 02			mov ah,2 
+ 001A  CD 21			int 21h 
+				 
+ 001C  2C 30			sub al,30h 
+ 001E  8A D8			mov bl,al 
+ 0020				bell: 
+ 0020  B2 07			mov dl,7 
+ 0022  B4 02			mov ah,2 
+ 0024  CD 21			int 21h 
+ 0026  FE CB			dec bl 
+ 0028  75 F6			jnz bell 
+				 
+ 002A				exit: 
+ 002A  B8 4C00			mov ax,4c00h 
+ 002D  CD 21			int 21h 
+				 
+ 002F				show proc near 
+ 002F  B8 ---- R		mov ax,data 
+ 0032  8E C0			mov es,ax 
+ 0034  8D 2E 0000 R		lea bp,string 
+ 0038  B9 000F			mov cx,len_str 
+ 003B  BA 0000			mov dx,0	;设置起始行列 
+ 003E  B4 00			mov ah,0 
+ 0040  B0 03			mov al,3 
+ 0042  CD 10			int 10h		;设置文本显示 
+ 0044  B3 0E			mov bl,0eh	;设置字符串属性为黑底黄字 
+ 0046  B4 13			mov ah,13h	;输出字符串 
+ 0048  B0 00			mov al,0 
+ 004A  CD 10			int 10h 
+Microsoft (R) Macro Assembler Version 5.00                  5/12/14 20:24:24
+                                                             Page     1-2
+
+
+ 004C  C3			ret 
+ 004D				show endp 
+				 
+ 004D				crlf proc near 
+ 004D  B2 0D			mov dl,0dh 
+ 004F  B4 02			mov ah,2 
+ 0051  CD 21			int 21h 
+ 0053  B2 0A			mov dl,0ah 
+ 0055  B4 02			mov ah,2 
+ 0057  CD 21			int 21h 
+ 0059  C3			ret 
+ 005A				crlf endp 
+ 005A				code ends 
+				end start 
+Microsoft (R) Macro Assembler Version 5.00                  5/12/14 20:24:24
+                                                             Symbols-1
+
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+CODE . . . . . . . . . . . . . .  	005A	PARA	NONE	
+DATA . . . . . . . . . . . . . .  	000F	PARA	NONE	
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+BELL . . . . . . . . . . . . . .  	L NEAR	0020	CODE
+
+CRLF . . . . . . . . . . . . . .  	N PROC	004D	CODE	Length = 000D
+
+EXIT . . . . . . . . . . . . . .  	L NEAR	002A	CODE
+
+LEN_STR  . . . . . . . . . . . .  	NUMBER	000F	
+
+NEXT . . . . . . . . . . . . . .  	L NEAR	0006	CODE
+
+SHOW . . . . . . . . . . . . . .  	N PROC	002F	CODE	Length = 001E
+START  . . . . . . . . . . . . .  	L NEAR	0000	CODE
+STRING . . . . . . . . . . . . .  	L BYTE	0000	DATA
+
+@FILENAME  . . . . . . . . . . .  	TEXT  work5		
+
+
+     65 Source  Lines
+     65 Total   Lines
+     12 Symbols
+
+  51178 + 465366 Bytes symbol space free
+
+      0 Warning Errors
+      0 Severe  Errors

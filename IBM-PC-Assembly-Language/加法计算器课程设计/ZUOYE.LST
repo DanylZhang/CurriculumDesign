@@ -1,0 +1,525 @@
+Microsoft (R) Macro Assembler Version 5.00                  6/17/14 03:11:56
+                                                             Page     1-1
+
+
+ 0000				data segment 
+ 0000  53 75 6D 20 43 61 6C	 string1 db 'Sum Calculator' 
+       63 75 6C 61 74 6F 72	
+ = 000E				 length1 equ $-string1 
+ 000E  4D 61 64 65 20 42 79	 string2 db 'Made By: Zhang Danyu' 
+       3A 20 5A 68 61 6E 67	
+       20 44 61 6E 79 75	
+ = 0014				 length2 equ $-string2 
+ 0022  53 74 75 64 65 6E 74	 string3 db 'Student ID: 41212205' 
+       20 49 44 3A 20 34 31	
+       32 31 32 32 30 35	
+ = 0014				 length3 equ $-string3 
+ 0036  50 6C 65 61 73 65 20	 string4 db 'Please press any key to start to c
+				alculate. ' 
+       70 72 65 73 73 20 61	
+       6E 79 20 6B 65 79 20	
+       74 6F 20 73 74 61 72	
+       74 20 74 6F 20 63 61	
+       6C 63 75 6C 61 74 65	
+       2E 20			
+ = 002C				 length4 equ $-string4 
+ 0062  50 6C 65 61 73 65 20	 string5 db 'Please input the first operand (0~
+				32767): ' 
+       69 6E 70 75 74 20 74	
+       68 65 20 66 69 72 73	
+       74 20 6F 70 65 72 61	
+       6E 64 20 28 30 7E 33	
+       32 37 36 37 29 3A 20	
+ = 002A				 length5 equ $-string5 
+ 008C  50 6C 65 61 73 65 20	 string6 db 'Please input the second operand (0
+				~32767): ' 
+       69 6E 70 75 74 20 74	
+       68 65 20 73 65 63 6F	
+       6E 64 20 6F 70 65 72	
+       61 6E 64 20 28 30 7E	
+       33 32 37 36 37 29 3A	
+       20			
+ = 002B				 length6 equ $-string6 
+ 00B7  72 65 73 75 6C 74 20	 string7 db 'result =  ' 
+       3D 20 20			
+ = 000A				 length7 equ $-string7 
+ 00C1  43 6F 6E 74 69 6E 75	 string8 db 'Continue to calculate?(y)  ' 
+       65 20 74 6F 20 63 61	
+       6C 63 75 6C 61 74 65	
+       3F 28 79 29 20 20	
+ = 001B				 length8 equ $-string8 
+ 00DC  0000			 operand1 dw 0 
+ 00DE  0000			 operand2 dw 0 
+ 00E0  0001			 temp dw 1		;用作10的倍数 
+ 00E2				data ends 
+				 
+ 0000				mystack segment 
+ 0000  0006[			 stack1 dw 6 dup(0) 
+	   0000			
+Microsoft (R) Macro Assembler Version 5.00                  6/17/14 03:11:56
+                                                             Page     1-2
+
+
+			 ]	
+				
+ 000C				mystack ends 
+				 
+ 0000				code segment 
+ 0000				main proc far 
+				assume cs:code,ds:data,ss:mystack 
+ 0000				start: 
+ 0000  B8 ---- R		        mov ax,data 
+ 0003  8E D8			        mov ds,ax 
+ 0005  E8 019B R		        call drawRectangle 
+ 0008				print1: 
+ 0008  B6 08			        mov dh,8 
+ 000A  B2 21			        mov dl,33 
+ 000C  B3 0E			        mov bl,0eh 
+ 000E  8D 36 0000 R		        lea si,string1 
+ 0012  B9 000E			        mov cx,length1 
+ 0015  E8 024A R		        call printString 
+ 0018				print2: 
+ 0018  B6 0C			        mov dh,12 
+ 001A  B2 1E			        mov dl,30 
+ 001C  B3 0E			        mov bl,0eh 
+ 001E  8D 36 000E R		        lea si,string2 
+ 0022  B9 0014			        mov cx,length2 
+ 0025  E8 024A R		        call printString 
+ 0028				print3: 
+ 0028  B6 0E			        mov dh,14 
+ 002A  B2 1E			        mov dl,30 
+ 002C  B3 0E			        mov bl,0eh 
+ 002E  8D 36 0022 R		        lea si,string3 
+ 0032  B9 0014			        mov cx,length3 
+ 0035  E8 024A R		        call printString 
+ 0038				print4: 
+ 0038  B6 12			        mov dh,18 
+ 003A  B2 13			        mov dl,19 
+ 003C  B3 0E			        mov bl,0eh 
+ 003E  8D 36 0036 R		        lea si,string4 
+ 0042  B9 002C			        mov cx,length4 
+ 0045  E8 024A R		        call printString 
+				 
+ 0048  B4 07			        mov ah,7 
+ 004A  CD 21			        int 21h 
+ 004C				next: 
+ 004C  B8 0003			        mov ax,3 
+ 004F  CD 10			        int 10h 
+ 0051				print5: 
+ 0051  B6 00			        mov dh,0 
+ 0053  B2 00			        mov dl,0 
+ 0055  B3 0E			        mov bl,0eh 
+ 0057  B4 02			        mov ah,2 
+ 0059  CD 10			        int 10h 
+ 005B  B0 20			        mov al,' ' 
+ 005D  B9 0046			        mov cx,70 
+ 0060  B4 09			        mov ah,9 
+Microsoft (R) Macro Assembler Version 5.00                  6/17/14 03:11:56
+                                                             Page     1-3
+
+
+ 0062  CD 10			        int 10h 
+				 
+ 0064  B6 00			        mov dh,0 
+ 0066  B2 00			        mov dl,0 
+ 0068  B3 0E			        mov bl,0eh 
+ 006A  8D 36 0062 R		        lea si,string5 
+ 006E  B9 002A			        mov cx,length5 
+ 0071  E8 024A R		        call printString 
+ 0074  B8 ---- R		        mov ax,mystack 
+ 0077  8E D0			        mov ss,ax 
+ 0079  BC 000C			        mov sp,12 
+ 007C  B9 0005			        mov cx,5 
+ 007F				loop1: 
+ 007F  B4 07			        mov ah,7 
+ 0081  CD 21			        int 21h 
+ 0083  3C 0D			        cmp al,0dh	;判断输入是否是回车 
+ 0085  74 15			        jz setOperand1 
+ 0087  3C 30			        cmp al,'0' 
+ 0089  7C F4			        jl loop1 
+ 008B  3C 39			        cmp al,'9' 
+ 008D  7F F0			        jg loop1 
+ 008F  8A D0			        mov dl,al 
+ 0091  B4 02			        mov ah,2 
+ 0093  CD 21			        int 21h 
+ 0095  2C 30			        sub al,30h 
+ 0097  B4 00			        mov ah,0 
+ 0099  50			        push ax 
+ 009A  E2 E3			        loop loop1 
+ 009C				setOperand1: 
+ 009C  C7 06 00E0 R 0001	        mov word ptr ds:temp[0],1 
+ 00A2  C7 06 00DC R 0000	        mov word ptr ds:operand1[0],0 
+ 00A8  BB 000A			        mov bx,10 
+ 00AB  B9 0005			        mov cx,5 
+ 00AE				loop2: 
+ 00AE  58			        pop ax 
+ 00AF  F7 26 00E0 R		        mul ds:temp[0] 
+ 00B3  01 06 00DC R		        add ds:operand1[0],ax 
+ 00B7  70 98			        jo print5 
+ 00B9  A1 00E0 R		        mov ax,ds:temp[0] 
+ 00BC  F7 E3			        mul bx 
+ 00BE  A3 00E0 R		        mov ds:temp[0],ax 
+ 00C1  83 FC 0C			        cmp sp,12 
+ 00C4  E0 E8			        loopne loop2 
+ 00C6				print6: 
+ 00C6  B6 02			        mov dh,2 
+ 00C8  B2 00			        mov dl,0 
+ 00CA  B3 0E			        mov bl,0eh 
+ 00CC  B4 02			        mov ah,2 
+ 00CE  CD 10			        int 10h 
+ 00D0  B0 20			        mov al,' ' 
+ 00D2  B9 0046			        mov cx,70 
+ 00D5  B4 09			        mov ah,9 
+ 00D7  CD 10			        int 10h 
+				 
+Microsoft (R) Macro Assembler Version 5.00                  6/17/14 03:11:56
+                                                             Page     1-4
+
+
+ 00D9  B6 02			        mov dh,2 
+ 00DB  B2 00			        mov dl,0 
+ 00DD  B3 0E			        mov bl,0eh 
+ 00DF  8D 36 008C R		        lea si,string6 
+ 00E3  B9 002B			        mov cx,length6 
+ 00E6  E8 024A R		        call printString 
+ 00E9  B9 0005			        mov cx,5 
+ 00EC				loop3: 
+ 00EC  B4 07			        mov ah,7 
+ 00EE  CD 21			        int 21h 
+ 00F0  3C 0D			        cmp al,0dh	;判断输入是否是回车 
+ 00F2  74 15			        jz setOperand2 
+ 00F4  3C 30			        cmp al,'0' 
+ 00F6  7C F4			        jl loop3 
+ 00F8  3C 39			        cmp al,'9' 
+ 00FA  7F F0			        jg loop3 
+ 00FC  8A D0			        mov dl,al 
+ 00FE  B4 02			        mov ah,2 
+ 0100  CD 21			        int 21h 
+ 0102  2C 30			        sub al,30h 
+ 0104  B4 00			        mov ah,0 
+ 0106  50			        push ax 
+ 0107  E2 E3			        loop loop3 
+ 0109				setOperand2: 
+ 0109  C7 06 00E0 R 0001	        mov word ptr ds:temp[0],1 
+ 010F  C7 06 00DE R 0000	        mov word ptr ds:operand2[0],0 
+ 0115  BB 000A			        mov bx,10 
+ 0118  B9 0005			        mov cx,5 
+ 011B				loop4: 
+ 011B  58			        pop ax 
+ 011C  F7 26 00E0 R		        mul ds:temp[0] 
+ 0120  01 06 00DE R		        add ds:operand2[0],ax 
+ 0124  70 A0			        jo print6 
+ 0126  A1 00E0 R		        mov ax,ds:temp[0] 
+ 0129  F7 E3			        mul bx 
+ 012B  A3 00E0 R		        mov ds:temp[0],ax 
+ 012E  83 FC 0C			        cmp sp,12 
+ 0131  E0 E8			        loopne loop4 
+ 0133				print7: 
+ 0133  B6 05			        mov dh,5 
+ 0135  B2 00			        mov dl,0 
+ 0137  B3 0E			        mov bl,0eh 
+ 0139  B4 02			        mov ah,2 
+ 013B  CD 10			        int 10h 
+ 013D  B0 20			        mov al,' ' 
+ 013F  B9 0046			        mov cx,70 
+ 0142  B4 09			        mov ah,9 
+ 0144  CD 10			        int 10h 
+				 
+ 0146  B6 05			        mov dh,5 
+ 0148  B2 00			        mov dl,0 
+ 014A  B3 0E			        mov bl,0eh 
+ 014C  8D 36 00B7 R		        lea si,string7 
+ 0150  B9 000A			        mov cx,length7 
+Microsoft (R) Macro Assembler Version 5.00                  6/17/14 03:11:56
+                                                             Page     1-5
+
+
+ 0153  E8 024A R		        call printString 
+ 0156  A1 00DC R		        mov ax,ds:operand1[0] 
+ 0159  03 06 00DE R		        add ax,ds:operand2[0] 
+ 015D  BB 000A			        mov bx,10 
+ 0160				loops1: 
+ 0160  BA 0000			        mov dx,0 
+ 0163  F7 F3			        div bx 
+ 0165  52			        push dx 
+ 0166  3D 0000			        cmp ax,0 
+ 0169  75 F5			        jnz loops1 
+ 016B				loops2: 
+ 016B  5A			        pop dx 
+ 016C  80 C2 30			        add dl,30h 
+ 016F  B4 02			        mov ah,2 
+ 0171  CD 21			        int 21h 
+ 0173  83 FC 0C			        cmp sp,12 
+ 0176  7C F3			        jl loops2		;输出结果 
+ 0178				print8: 
+ 0178  B6 08			        mov dh,8 
+ 017A  B2 00			        mov dl,0 
+ 017C  B3 0E			        mov bl,0eh 
+ 017E  8D 36 00C1 R		        lea si,string8 
+ 0182  B9 001B			        mov cx,length8 
+ 0185  E8 024A R		        call printString 
+				 
+ 0188  B4 01			        mov ah,1 
+ 018A  CD 21			        int 21h 
+ 018C  3C 79			        cmp al,'y' 
+ 018E  74 4C			        je dword ptr next 
+zuoye.asm(213): warning A4057: Illegal size for operand
+				 
+ 0190  B8 4C00			        mov ax,4c00h 
+ 0193  CD 21			        int 21h 
+ 0195  B8 4C00			        mov ax,4c00h 
+ 0198  CD 21			        int 21h 
+ 019A  CB			        ret 
+ 019B				main endp 
+				 
+ 019B				drawRectangle proc near 
+ 019B  1E			        push ds 
+ 019C  50			        push ax 
+ 019D  53			        push bx 
+ 019E  51			        push cx 
+ 019F  52			        push dx 
+ 01A0  B8 ---- R		        mov ax,data 
+ 01A3  8E D8			        mov ds,ax 
+				 
+ 01A5  B8 0003			        mov ax,3 
+ 01A8  CD 10			        int 10h 
+ 01AA  B6 14			        mov dh,20			; curre
+				nt row 
+ 01AC  B2 0A			        mov dl,10			; curre
+				nt column 
+ 01AE  B3 0E			        mov bl,0eh		; current attri
+Microsoft (R) Macro Assembler Version 5.00                  6/17/14 03:11:56
+                                                             Page     1-6
+
+
+				butes 
+ 01B0  B9 0010			        mov cx,16 
+ 01B3				left: 
+ 01B3  51			        push cx 
+ 01B4  E8 026C R		        call waitOneSecond 
+ 01B7  B4 02			        mov ah,2 
+ 01B9  CD 10			        int 10h 
+ 01BB  B0 2A			        mov al,'*' 
+ 01BD  B9 0001			        mov cx,1 
+ 01C0  B4 09			        mov ah,9 
+ 01C2  CD 10			        int 10h 
+ 01C4  FE CE			        dec dh 
+ 01C6  59			        pop cx 
+ 01C7  E2 EA			        loop left 
+				 
+ 01C9  B6 04			        mov dh,4 
+ 01CB  B2 0A			        mov dl,10 
+ 01CD  B3 0E			        mov bl,0eh 
+ 01CF  B9 001E			        mov cx,30 
+ 01D2				top: 
+ 01D2  51			        push cx 
+ 01D3  E8 026C R		        call waitOneSecond 
+ 01D6  B4 02			        mov ah,2 
+ 01D8  CD 10			        int 10h 
+ 01DA  B0 2A			        mov al,'*' 
+ 01DC  B9 0001			        mov cx,1 
+ 01DF  B4 09			        mov ah,9 
+ 01E1  CD 10			        int 10h 
+				 
+ 01E3  FE C2			        inc dl 
+ 01E5  B4 02			        mov ah,2 
+ 01E7  CD 10			        int 10h 
+ 01E9  B0 20			        mov al,' ' 
+ 01EB  B9 0001			        mov cx,1 
+ 01EE  B4 09			        mov ah,9 
+ 01F0  CD 10			        int 10h 
+ 01F2  FE C2			        inc dl 
+ 01F4  59			        pop cx 
+ 01F5  E2 DB			        loop top 
+				 
+ 01F7  B6 04			        mov dh,4 
+ 01F9  B2 94			        mov dl,94h 
+ 01FB  B3 0E			        mov bl,0eh 
+ 01FD  B9 0010			        mov cx,16 
+ 0200				right: 
+ 0200  51			        push cx 
+ 0201  E8 026C R		        call waitOneSecond 
+ 0204  B4 02			        mov ah,2 
+ 0206  CD 10			        int 10h 
+ 0208  B0 2A			        mov al,'*' 
+ 020A  B9 0001			        mov cx,1 
+ 020D  B4 09			        mov ah,9 
+ 020F  CD 10			        int 10h 
+ 0211  FE C6			        inc dh 
+Microsoft (R) Macro Assembler Version 5.00                  6/17/14 03:11:56
+                                                             Page     1-7
+
+
+ 0213  59			        pop cx 
+ 0214  E2 EA			        loop right 
+				 
+ 0216  B6 14			        mov dh,20 
+ 0218  B2 94			        mov dl,94h 
+ 021A  B3 0E			        mov bl,0eh 
+ 021C  B9 001E			        mov cx,30 
+ 021F				buttom: 
+ 021F  51			        push cx 
+ 0220  E8 026C R		        call waitOneSecond 
+ 0223  B4 02			        mov ah,2 
+ 0225  CD 10			        int 10h 
+ 0227  B0 2A			        mov al,'*' 
+ 0229  B9 0001			        mov cx,1 
+ 022C  B4 09			        mov ah,9 
+ 022E  CD 10			        int 10h 
+				 
+ 0230  FE CA			        dec dl 
+ 0232  B4 02			        mov ah,2 
+ 0234  CD 10			        int 10h 
+ 0236  B0 20			        mov al,' ' 
+ 0238  B9 0001			        mov cx,1 
+ 023B  B4 09			        mov ah,9 
+ 023D  CD 10			        int 10h 
+ 023F  FE CA			        dec dl 
+ 0241  59			        pop cx 
+ 0242  E2 DB			        loop buttom 
+ 0244  5A			        pop dx 
+ 0245  59			        pop cx 
+ 0246  5B			        pop bx 
+ 0247  58			        pop ax 
+ 0248  1F			        pop ds 
+ 0249  C3			        ret 
+ 024A				drawRectangle endp 
+				 
+ 024A				printString proc near 
+ 024A  50			        push ax 
+ 024B  53			        push bx 
+ 024C  51			        push cx 
+ 024D  52			        push dx 
+ 024E  56			        push si 
+ 024F				print: 
+ 024F  51			        push cx 
+ 0250  E8 026C R		        call waitOneSecond 
+ 0253  B4 02			        mov ah,2 
+ 0255  CD 10			        int 10h 
+ 0257  8A 04			        mov al,ds:[si] 
+ 0259  B9 0001			        mov cx,1 
+ 025C  B4 09			        mov ah,9 
+ 025E  CD 10			        int 10h 
+ 0260  46			        inc si 
+ 0261  FE C2			        inc dl 
+ 0263  59			        pop cx 
+ 0264  E2 E9			        loop print 
+Microsoft (R) Macro Assembler Version 5.00                  6/17/14 03:11:56
+                                                             Page     1-8
+
+
+ 0266  5E			        pop si 
+ 0267  5A			        pop dx 
+ 0268  59			        pop cx 
+ 0269  5B			        pop bx 
+ 026A  58			        pop ax 
+ 026B  C3			        ret 
+ 026C				printString endp 
+				 
+ 026C				waitOneSecond proc near 
+ 026C  51			        push cx 
+ 026D  52			        push dx 
+ 026E  BA 0014			        mov dx,20 
+ 0271				wait1: 
+ 0271  B9 1A91			        mov cx,6801 
+ 0274				wait2: 
+ 0274  E2 FE			        loop wait2 
+ 0276  4A			        dec dx 
+ 0277  75 F8			        jnz wait1 
+ 0279  5A			        pop dx 
+ 027A  59			        pop cx 
+ 027B  C3			        ret 
+ 027C				waitOneSecond endp 
+ 027C				        code ends 
+				        end start 
+Microsoft (R) Macro Assembler Version 5.00                  6/17/14 03:11:56
+                                                             Symbols-1
+
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+CODE . . . . . . . . . . . . . .  	027C	PARA	NONE	
+DATA . . . . . . . . . . . . . .  	00E2	PARA	NONE	
+MYSTACK  . . . . . . . . . . . .  	000C	PARA	NONE	
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+BUTTOM . . . . . . . . . . . . .  	L NEAR	021F	CODE
+
+DRAWRECTANGLE  . . . . . . . . .  	N PROC	019B	CODE	Length = 00AF
+
+LEFT . . . . . . . . . . . . . .  	L NEAR	01B3	CODE
+LENGTH1  . . . . . . . . . . . .  	NUMBER	000E	
+LENGTH2  . . . . . . . . . . . .  	NUMBER	0014	
+LENGTH3  . . . . . . . . . . . .  	NUMBER	0014	
+LENGTH4  . . . . . . . . . . . .  	NUMBER	002C	
+LENGTH5  . . . . . . . . . . . .  	NUMBER	002A	
+LENGTH6  . . . . . . . . . . . .  	NUMBER	002B	
+LENGTH7  . . . . . . . . . . . .  	NUMBER	000A	
+LENGTH8  . . . . . . . . . . . .  	NUMBER	001B	
+LOOP1  . . . . . . . . . . . . .  	L NEAR	007F	CODE
+LOOP2  . . . . . . . . . . . . .  	L NEAR	00AE	CODE
+LOOP3  . . . . . . . . . . . . .  	L NEAR	00EC	CODE
+LOOP4  . . . . . . . . . . . . .  	L NEAR	011B	CODE
+LOOPS1 . . . . . . . . . . . . .  	L NEAR	0160	CODE
+LOOPS2 . . . . . . . . . . . . .  	L NEAR	016B	CODE
+
+MAIN . . . . . . . . . . . . . .  	F PROC	0000	CODE	Length = 019B
+
+NEXT . . . . . . . . . . . . . .  	L NEAR	004C	CODE
+
+OPERAND1 . . . . . . . . . . . .  	L WORD	00DC	DATA
+OPERAND2 . . . . . . . . . . . .  	L WORD	00DE	DATA
+
+PRINT  . . . . . . . . . . . . .  	L NEAR	024F	CODE
+PRINT1 . . . . . . . . . . . . .  	L NEAR	0008	CODE
+PRINT2 . . . . . . . . . . . . .  	L NEAR	0018	CODE
+PRINT3 . . . . . . . . . . . . .  	L NEAR	0028	CODE
+PRINT4 . . . . . . . . . . . . .  	L NEAR	0038	CODE
+PRINT5 . . . . . . . . . . . . .  	L NEAR	0051	CODE
+PRINT6 . . . . . . . . . . . . .  	L NEAR	00C6	CODE
+PRINT7 . . . . . . . . . . . . .  	L NEAR	0133	CODE
+PRINT8 . . . . . . . . . . . . .  	L NEAR	0178	CODE
+PRINTSTRING  . . . . . . . . . .  	N PROC	024A	CODE	Length = 0022
+
+RIGHT  . . . . . . . . . . . . .  	L NEAR	0200	CODE
+
+SETOPERAND1  . . . . . . . . . .  	L NEAR	009C	CODE
+SETOPERAND2  . . . . . . . . . .  	L NEAR	0109	CODE
+Microsoft (R) Macro Assembler Version 5.00                  6/17/14 03:11:56
+                                                             Symbols-2
+
+
+STACK1 . . . . . . . . . . . . .  	L WORD	0000	MYSTACK	Length = 0006
+START  . . . . . . . . . . . . .  	L NEAR	0000	CODE
+STRING1  . . . . . . . . . . . .  	L BYTE	0000	DATA
+STRING2  . . . . . . . . . . . .  	L BYTE	000E	DATA
+STRING3  . . . . . . . . . . . .  	L BYTE	0022	DATA
+STRING4  . . . . . . . . . . . .  	L BYTE	0036	DATA
+STRING5  . . . . . . . . . . . .  	L BYTE	0062	DATA
+STRING6  . . . . . . . . . . . .  	L BYTE	008C	DATA
+STRING7  . . . . . . . . . . . .  	L BYTE	00B7	DATA
+STRING8  . . . . . . . . . . . .  	L BYTE	00C1	DATA
+
+TEMP . . . . . . . . . . . . . .  	L WORD	00E0	DATA
+TOP  . . . . . . . . . . . . . .  	L NEAR	01D2	CODE
+
+WAIT1  . . . . . . . . . . . . .  	L NEAR	0271	CODE
+WAIT2  . . . . . . . . . . . . .  	L NEAR	0274	CODE
+WAITONESECOND  . . . . . . . . .  	N PROC	026C	CODE	Length = 0010
+
+@FILENAME  . . . . . . . . . . .  	TEXT  zuoye		
+
+
+    366 Source  Lines
+    366 Total   Lines
+     54 Symbols
+
+  50948 + 449212 Bytes symbol space free
+
+      0 Warning Errors
+      0 Severe  Errors

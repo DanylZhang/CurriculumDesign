@@ -1,0 +1,4 @@
+d:\documents\visual studio 2015\Projects\Danyl.SnnuURP\Danyl.SnnuURP.Model\bin\Debug\Danyl.SnnuURP.Model.dll
+d:\documents\visual studio 2015\Projects\Danyl.SnnuURP\Danyl.SnnuURP.Model\bin\Debug\Danyl.SnnuURP.Model.pdb
+d:\documents\visual studio 2015\Projects\Danyl.SnnuURP\Danyl.SnnuURP.Model\obj\Debug\Danyl.SnnuURP.Model.dll
+d:\documents\visual studio 2015\Projects\Danyl.SnnuURP\Danyl.SnnuURP.Model\obj\Debug\Danyl.SnnuURP.Model.pdb

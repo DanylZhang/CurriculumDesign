@@ -1,0 +1,15 @@
+d:\documents\visual studio 2015\Projects\Danyl.SnnuURP\Danyl.SnnuURP.BLL\bin\Debug\Danyl.SnnuURP.BLL.dll
+d:\documents\visual studio 2015\Projects\Danyl.SnnuURP\Danyl.SnnuURP.BLL\bin\Debug\Danyl.SnnuURP.BLL.pdb
+d:\documents\visual studio 2015\Projects\Danyl.SnnuURP\Danyl.SnnuURP.BLL\bin\Debug\Danyl.SnnuURP.Common.dll
+d:\documents\visual studio 2015\Projects\Danyl.SnnuURP\Danyl.SnnuURP.BLL\bin\Debug\Danyl.SnnuURP.DAL.dll
+d:\documents\visual studio 2015\Projects\Danyl.SnnuURP\Danyl.SnnuURP.BLL\bin\Debug\Danyl.SnnuURP.Model.dll
+d:\documents\visual studio 2015\Projects\Danyl.SnnuURP\Danyl.SnnuURP.BLL\bin\Debug\Danyl.SnnuURP.DBUtility.dll
+d:\documents\visual studio 2015\Projects\Danyl.SnnuURP\Danyl.SnnuURP.BLL\bin\Debug\IBatisNet.DataMapper.dll
+d:\documents\visual studio 2015\Projects\Danyl.SnnuURP\Danyl.SnnuURP.BLL\bin\Debug\IBatisNet.Common.dll
+d:\documents\visual studio 2015\Projects\Danyl.SnnuURP\Danyl.SnnuURP.BLL\bin\Debug\Danyl.SnnuURP.Common.pdb
+d:\documents\visual studio 2015\Projects\Danyl.SnnuURP\Danyl.SnnuURP.BLL\bin\Debug\Danyl.SnnuURP.DAL.pdb
+d:\documents\visual studio 2015\Projects\Danyl.SnnuURP\Danyl.SnnuURP.BLL\bin\Debug\Danyl.SnnuURP.Model.pdb
+d:\documents\visual studio 2015\Projects\Danyl.SnnuURP\Danyl.SnnuURP.BLL\bin\Debug\Danyl.SnnuURP.DBUtility.pdb
+d:\documents\visual studio 2015\Projects\Danyl.SnnuURP\Danyl.SnnuURP.BLL\obj\Debug\Danyl.SnnuURP.BLL.csprojResolveAssemblyReference.cache
+d:\documents\visual studio 2015\Projects\Danyl.SnnuURP\Danyl.SnnuURP.BLL\obj\Debug\Danyl.SnnuURP.BLL.dll
+d:\documents\visual studio 2015\Projects\Danyl.SnnuURP\Danyl.SnnuURP.BLL\obj\Debug\Danyl.SnnuURP.BLL.pdb

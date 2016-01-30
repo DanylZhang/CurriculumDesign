@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "我的信息";
+    Layout = "~/Areas/Teacher/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="mbx">我的信息 &gt; 个人资料 &nbsp;&nbsp;&nbsp;</h2>
+<div class="cztable">
+    <table width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+            <td align="right" width="80">姓名：</td>
+            <td>@ViewBag.Tname&nbsp;</td>
+            <td align="right" width="90">身份证号码：</td>
+            <td>@ViewBag.IdNumber&nbsp;</td>
+
+            <td rowspan="9"><div align="center"><img id="pic_face" height="160" width="120" src="/Images/Teacher/photo.jpg" style="padding:2px 2px 5px; border:1px #ddd solid;"></div>&nbsp;</td>
+        </tr>
+        <tr>
+            <td align="right">性别：</td>
+            <td>@ViewBag.Sex&nbsp;</td>
+            <td align="right">工号：</td>
+            <td>@ViewBag.Tid&nbsp;</td>
+        </tr>
+        <tr>
+            <td align="right">所属学院：</td>
+            <td>@ViewBag.Depart&nbsp;</td>
+            <td align="right">学位：</td>
+            <td>@ViewBag.Degree&nbsp;</td>
+        </tr>
+        <tr>
+            <td align="right">教师类型：</td>
+            <td>@ViewBag.TeacherType&nbsp;</td>
+            <td align="right">&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td colspan="4" align="left">联系方式（如联系方式有变动请及时修改，以便能及时联系到你。谢谢！）</td>
+        </tr>
+        <tr>
+            <td align="right">手机号码：</td>
+            <td>@ViewBag.Phone</td>
+            <td align="right">第二联系号码：</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td align="right">QQ:</td>
+            <td></td>
+            <td align="right">电子邮箱：</td>
+            <td>@ViewBag.Email</td>
+        </tr>
+        <tr align="center">
+            <td colspan="5" height="40">
+                <div align="center">
+                    <input type="button" id="button2" value="联系方式有修改" onclick="submitMail()" class="input2" />
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

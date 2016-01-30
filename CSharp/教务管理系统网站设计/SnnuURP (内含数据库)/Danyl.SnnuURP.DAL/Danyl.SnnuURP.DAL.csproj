@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BD3BADCB-50B4-4831-AF1F-864B6231131D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Danyl.SnnuURP.DAL</RootNamespace>
+    <AssemblyName>Danyl.SnnuURP.DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assignment.cs" />
+    <Compile Include="AssignmentSubmit.cs" />
+    <Compile Include="Class.cs" />
+    <Compile Include="ClassRoom.cs" />
+    <Compile Include="Course.cs" />
+    <Compile Include="CourseCategory.cs" />
+    <Compile Include="CourseSelect.cs" />
+    <Compile Include="Depart.cs" />
+    <Compile Include="FileInfo.cs" />
+    <Compile Include="Major.cs" />
+    <Compile Include="PlanDetail.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RoomUse.cs" />
+    <Compile Include="RoomUseView.cs" />
+    <Compile Include="SchoolDistrict.cs" />
+    <Compile Include="SelectedStudentView.cs" />
+    <Compile Include="StuInfo.cs" />
+    <Compile Include="SysManage.cs" />
+    <Compile Include="Teach.cs" />
+    <Compile Include="TeachBuilding.cs" />
+    <Compile Include="TeachCourseView.cs" />
+    <Compile Include="Teacher.cs" />
+    <Compile Include="TeacherScoreView.cs" />
+    <Compile Include="TeacherType.cs" />
+    <Compile Include="TeacherWageAdjustmentView.cs" />
+    <Compile Include="TrainPlan.cs" />
+    <Compile Include="UserInfo.cs" />
+    <Compile Include="UserPower.cs" />
+    <Compile Include="WageAdjustment.cs" />
+    <Compile Include="WageInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Danyl.SnnuURP.DBUtility\Danyl.SnnuURP.DBUtility.csproj">
+      <Project>{3493b892-28a2-427b-ba02-a07390cb7783}</Project>
+      <Name>Danyl.SnnuURP.DBUtility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Danyl.SnnuURP.Model\Danyl.SnnuURP.Model.csproj">
+      <Project>{0a59261a-a7e0-4a41-9709-7c3e705cd6f0}</Project>
+      <Name>Danyl.SnnuURP.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

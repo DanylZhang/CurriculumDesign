@@ -1,0 +1,4 @@
+d:\documents\visual studio 2015\Projects\Danyl.SnnuURP\Danyl.SnnuURP.DBUtility\bin\Debug\Danyl.SnnuURP.DBUtility.dll
+d:\documents\visual studio 2015\Projects\Danyl.SnnuURP\Danyl.SnnuURP.DBUtility\bin\Debug\Danyl.SnnuURP.DBUtility.pdb
+d:\documents\visual studio 2015\Projects\Danyl.SnnuURP\Danyl.SnnuURP.DBUtility\obj\Debug\Danyl.SnnuURP.DBUtility.dll
+d:\documents\visual studio 2015\Projects\Danyl.SnnuURP\Danyl.SnnuURP.DBUtility\obj\Debug\Danyl.SnnuURP.DBUtility.pdb

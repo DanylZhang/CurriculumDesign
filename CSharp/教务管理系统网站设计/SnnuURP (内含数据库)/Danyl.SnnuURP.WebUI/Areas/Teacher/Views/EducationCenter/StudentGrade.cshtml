@@ -1,0 +1,46 @@
+﻿@using Danyl.SnnuURP.Model;
+
+@{
+    ViewBag.Title = "学生成绩";
+    Layout = "~/Areas/Teacher/Views/Shared/_Layout.cshtml";
+}
+<h2 class="mbx">教务中心 &gt; 学生成绩</h2>
+<div class="cztable">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="height: 25px" align="center">
+            <th>课程</th>
+            <th>学期</th>
+            <th>学号</th>
+            <th>姓名</th>
+            <th>成绩</th>
+            <th>状态</th>
+        </tr>
+        @if (ViewBag.ScoreList == null)
+        {
+            <tr align="center">
+                <td colspan="13" align="left" style="color: Red; font-weight:bold;">未找到成绩信息！</td>
+            </tr>
+        }
+        else
+        {
+            foreach (TeacherScoreView score in ViewBag.ScoreList)
+            {
+                <tr align="center">
+                    <td>@score.Cname</td>
+                    <td>@score.Semaster</td>
+                    <td>@score.Sid</td>
+                    <td>@score.Sname</td>
+                    <td>@score.TotalScore</td>
+                    @if ((score.TotalScore ?? 0) >= 60)
+                    {
+                        <td>通过</td>
+                    }
+                    else
+                    {
+                        <td style="color:red;font-style:italic;">挂科</td>
+                    }
+                </tr>
+            }
+        }
+    </table>
+</div>

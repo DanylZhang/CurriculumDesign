@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "短消息";
+    Layout = "~/Areas/Teacher/Views/Shared/_Layout.cshtml";
+}
+<h2 class="mbx">我的信息 &gt; 短消息</h2>
+<div class="cztable">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="height: 25px" align="center">
+            <th scope="col">序号</th>
+            <th scope="col">类型</th>
+            <th scope="col">标题</th>
+            <th scope="col">内容</th>
+            <th scope="col">添加时间</th>
+            <th scope="col">状态</th>
+        </tr>
+        @if (ViewBag.LetterMsg == null)
+        {
+            <tr align="center">
+                <td colspan="13" align="left" style="color: Red; font-weight:bold;">暂无短消息！</td>
+            </tr>
+        }
+        else
+        {
+            foreach (string msg in ViewBag.LetterMsg)
+            {
+                <tr align="center">
+                    <td>@msg</td>
+                    <td>@msg</td>
+                    <td>@msg</td>
+                    <td>@msg</td>
+                    <td>@msg</td>
+                    <td>@msg</td>
+                </tr>
+            }
+        }
+    </table>
+</div>
+
+<div class="cztable">
+    <h2 class="mbx">我的信息 &gt; 发短消息</h2>
+    <table width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+            <td width="15%" align="right"><div align="right">信息主题： </div></td>
+            <td><input id="Ctitle" size="20" name="Ctitle" class="input_2" /></td>
+        </tr>
+        <tr>
+            <td width="15%" align="right"><div align="right">信息类型： </div></td>
+            <td>
+                <select id="Ctype" name="Ctype">
+                    <option value="Unselected">请选择</option>
+                    <option value="1">投诉</option>
+                    <option value="2">意见</option>
+                    <option value="3">提问</option>
+                    <option value="4">邮件</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td width="15%" align="right"><div align="right">信息内容： </div></td>
+            <td><textarea name="Ccontent" cols="80" rows="5" id="Ccontent" class="input_2"></textarea></td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <div align="center">
+                    <input type="submit" value="提交" onclick="saveClick('7c50f70a-775b-4aef-8bf2-5010ec612c0d')" class="input2" />
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
